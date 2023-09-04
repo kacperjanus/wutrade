@@ -12,13 +12,13 @@ function App() {
             <ReactQueryDevtools initialIsOpen={false} />
             <BrowserRouter>
                 <Routes>
+                    <Route index element={<Homepage />} />
                     <Route element={<AppLayout />}>
-                        <Route index element={<Homepage />} />
+                        <Route path="/dashboard" element="" />
                         <Route path="*" element="" />
                     </Route>
                 </Routes>
             </BrowserRouter>
-            <div className="text-3xl">Hello React</div>;
         </QueryClientProvider>
     );
 }
