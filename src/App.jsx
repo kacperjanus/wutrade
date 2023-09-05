@@ -3,6 +3,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import AppLayout from "./ui/AppLayout";
+import Dashboard from "./pages/Dashboard";
 
 const queryClient = new QueryClient();
 
@@ -14,7 +15,7 @@ function App() {
                 <Routes>
                     <Route index element={<Homepage />} />
                     <Route element={<AppLayout />}>
-                        <Route path="/dashboard" element="" />
+                        <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="*" element="" />
                     </Route>
                 </Routes>
