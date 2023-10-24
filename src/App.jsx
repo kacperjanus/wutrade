@@ -4,6 +4,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import AppLayout from "./ui/AppLayout";
 import Dashboard from "./pages/Dashboard";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 const queryClient = new QueryClient();
 
@@ -14,6 +16,8 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route index element={<Homepage />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
                     <Route element={<AppLayout />}>
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="*" element="" />
