@@ -10,12 +10,14 @@ import Portfolio from "./pages/Portfolio";
 import Watchlist from "./pages/Watchlist";
 import Leaderboards from "./pages/Leaderboards";
 import Account from "./pages/Account";
+import { Toaster } from "react-hot-toast";
 
 const queryClient = new QueryClient();
 
 function App() {
     return (
         <QueryClientProvider client={queryClient}>
+            <Toaster />
             <ReactQueryDevtools initialIsOpen={false} />
             <BrowserRouter>
                 <Routes>
