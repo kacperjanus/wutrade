@@ -6,6 +6,10 @@ import AppLayout from "./ui/AppLayout";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Portfolio from "./pages/Portfolio";
+import Watchlist from "./pages/Watchlist";
+import Leaderboards from "./pages/Leaderboards";
+import Account from "./pages/Account";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +24,13 @@ function App() {
                     <Route path="/register" element={<Register />} />
                     <Route element={<AppLayout />}>
                         <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/portfolio" element={<Portfolio />} />
+                        <Route path="/watchlist" element={<Watchlist />} />
+                        <Route
+                            path="/leaderboards"
+                            element={<Leaderboards />}
+                        />
+                        <Route path="/account" element={<Account />} />
                         <Route path="*" element="" />
                     </Route>
                 </Routes>
