@@ -13,7 +13,7 @@ export function useLogin() {
             signInWithEmail({ email, password }),
         //If successful set "user" query in React Query and navigate to dashboard
         onSuccess: (user) => {
-            queryClient.setQueryData(["user"], user);
+            queryClient.setQueryData(["user"], user.user);
             navigate("/dashboard");
         },
         //If unsuccessful display appropriate message on the screen
