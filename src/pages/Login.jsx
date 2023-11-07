@@ -9,11 +9,11 @@ function Login() {
         //Check if both inputs are filled out
         if (!email || !password) return;
         login({ email, password });
+        //TODO if isLoading === true add spinner
     }
 
     return (
         <>
-            //TODO if isLoading === true add spinner
             <div>Log in</div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <label>Email</label>
