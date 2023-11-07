@@ -2,13 +2,14 @@ import { useForm } from "react-hook-form";
 import { useLogin } from "../features/authentication/useLogin";
 
 function Login() {
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, reset } = useForm();
     const { login, isLoading } = useLogin();
 
     function onSubmit({ email, password }) {
         //Check if both inputs are filled out
         if (!email || !password) return;
         login({ email, password });
+        reset();
         //TODO if isLoading === true add spinner
     }
 
