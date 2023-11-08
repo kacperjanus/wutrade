@@ -20,12 +20,14 @@ function Login() {
                 <label>Email</label>
                 <input
                     className="border-solid border-2"
+                    defaultValue={"kacper@gmail.com"}
                     {...register("email")}
                 />
                 <label>Password</label>
                 <input
                     className="border-solid border-2"
                     type="password"
+                    defaultValue={"kacper"}
                     {...register("password")}
                 />
                 <input type="submit" />
