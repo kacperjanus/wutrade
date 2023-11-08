@@ -21,6 +21,8 @@ const queryClient = new QueryClient({
     },
 });
 
+queryClient.setQueryDefaults(["user"], { staleTime: Infinity });
+
 function App() {
     return (
         <QueryClientProvider client={queryClient}>
