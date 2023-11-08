@@ -11,6 +11,7 @@ import Watchlist from "./pages/Watchlist";
 import Leaderboards from "./pages/Leaderboards";
 import Account from "./pages/Account";
 import { Toaster } from "react-hot-toast";
+import ProtectedRoute from "./ui/ProtectedRoute";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -30,7 +31,13 @@ function App() {
                     <Route index element={<Homepage />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
-                    <Route element={<AppLayout />}>
+                    <Route
+                        element={
+                            <ProtectedRoute>
+                                <AppLayout />
+                            </ProtectedRoute>
+                        }
+                    >
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/portfolio" element={<Portfolio />} />
                         <Route path="/watchlist" element={<Watchlist />} />
