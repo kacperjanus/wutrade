@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useSignOut } from "../features/authentication/useSignout";
 import { getCurrentUser } from "../services/apiAuth";
+import PrimaryButton from "./PrimaryButton";
 
 function Header() {
     const { signOut, isLoading } = useSignOut();
@@ -16,7 +17,7 @@ function Header() {
                 placeholder="Search"
             ></input>
             <h1>Balance: XXX</h1>
-            <button onClick={() => signOut()}>Log out</button>
+            <PrimaryButton onClick={() => signOut()}>Log out</PrimaryButton>
         </header>
     );
 }

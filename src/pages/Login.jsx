@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useLogin } from "../features/authentication/useLogin";
+import PrimaryButton from "../ui/PrimaryButton";
 
 function Login() {
     const { register, handleSubmit, reset } = useForm();
@@ -29,7 +30,7 @@ function Login() {
                     defaultValue={"kacper"}
                     {...register("password")}
                 />
-                <input type="submit" />
+                <PrimaryButton type="submit">Log in</PrimaryButton>
             </form>
         </>
     );

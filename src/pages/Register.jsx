@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useSignup } from "../features/authentication/useSignup";
 import toast from "react-hot-toast";
+import PrimaryButton from "../ui/PrimaryButton";
 
 function Register() {
     const { register, handleSubmit } = useForm();
@@ -39,7 +40,7 @@ function Register() {
                     {...register("confirmPassword")}
                     required
                 />
-                <input type="submit" />
+                <PrimaryButton type="submit">Register</PrimaryButton>
             </form>
         </>
     );
