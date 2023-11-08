@@ -19,6 +19,20 @@ export async function signInWithEmail({ email, password }) {
     return data;
 }
 
+export async function signUpWithEmail({ email, password }) {
+    //Sign up with Supabase
+    const { data, error } = await supabase.auth.signUp({
+        email: email,
+        password: password,
+    });
+
+    //Check if login was successful
+    if (error) throw new Error(error.message);
+
+    //Return registered user's data
+    return data;
+}
+
 export async function getCurrentUser() {
     //Check if session is active
     const { data: session } = await supabase.auth.getSession();
