@@ -12,7 +12,13 @@ import Leaderboards from "./pages/Leaderboards";
 import Account from "./pages/Account";
 import { Toaster } from "react-hot-toast";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            staleTime: 1000,
+        },
+    },
+});
 
 function App() {
     return (
