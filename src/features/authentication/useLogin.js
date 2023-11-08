@@ -12,9 +12,9 @@ export function useLogin() {
         mutationFn: ({ email, password }) =>
             signInWithEmail({ email, password }),
         //If successful set "user" query in React Query and navigate to dashboard
-        onSuccess: (user) => {
-            queryClient.setQueryData(["user"], user.user);
-            navigate("/dashboard");
+        onSuccess: (data) => {
+            queryClient.setQueryData(["user"], data.user);
+            navigate("/dashboard", { replace: true });
         },
         //If unsuccessful display appropriate message on the screen
         onError: (err) => toast.error("Provided credentials are incorrect"),

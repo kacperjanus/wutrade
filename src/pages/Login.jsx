@@ -8,8 +8,7 @@ function Login() {
     function onSubmit({ email, password }) {
         //Check if both inputs are filled out
         if (!email || !password) return;
-        login({ email, password });
-        reset();
+        login({ email, password }, { onSettled: () => reset() });
         //TODO if isLoading === true add spinner
     }
 
