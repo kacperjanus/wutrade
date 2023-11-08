@@ -36,7 +36,7 @@ export async function signUpWithEmail({ email, password }) {
 export async function getCurrentUser() {
     //Check if session is active
     const { data: session } = await supabase.auth.getSession();
-    if (session.session) return null;
+    if (!session.session) return null;
 
     //If the session is active get current user's data
     const { data, error } = await supabase.auth.getUser();
