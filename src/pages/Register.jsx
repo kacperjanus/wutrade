@@ -7,8 +7,8 @@ function Register() {
     const { register, handleSubmit } = useForm();
     const { signUp, isLoading } = useSignup();
 
-    function onSubmit({ email, password, confirmPassword }) {
-        if (!email || !password || !confirmPassword) return;
+    function onSubmit({ email, password, confirmPassword, username }) {
+        if (!email || !password || !confirmPassword || !username) return;
         if (password !== confirmPassword) {
             toast.error("Passwords have to match");
             return;
@@ -19,7 +19,16 @@ function Register() {
     return (
         <>
             <div>Register</div>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form
+                className="flex flex-col w-80"
+                onSubmit={handleSubmit(onSubmit)}
+            >
+                <label>Username</label>
+                <input
+                    className="border-solid border-2"
+                    {...register("username")}
+                    required
+                />
                 <label>Email</label>
                 <input
                     className="border-solid border-2"
