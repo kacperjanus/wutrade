@@ -15,7 +15,6 @@ export async function signInWithEmail({ email, password }) {
 
     //Check if login was successful
     if (signInError) throw new Error(signInError.message);
-    console.log(signInData.user.id);
 
     //Get user data from user_data table in the database
     const { data: userData, error: userDataError } = await supabase
@@ -25,7 +24,6 @@ export async function signInWithEmail({ email, password }) {
         .single();
 
     if (userDataError) throw new Error(userDataError.message);
-    console.log(signInData.user);
 
     //Merge the data
     const data = {
