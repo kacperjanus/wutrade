@@ -7,13 +7,33 @@ export async function signOutUser() {
 
 export async function signInWithEmail({ email, password }) {
     //Authenticate user with Supabase
-    const { data, error } = await supabase.auth.signInWithPassword({
-        email: email,
-        password: password,
-    });
+    const { data: signInData, error: signInError } =
+        await supabase.auth.signInWithPassword({
+            email: email,
+            password: password,
+        });
 
     //Check if login was successful
-    if (error) throw new Error(error.message);
+    if (signInError) throw new Error(signInError.message);
+    console.log(signInData.user.id);
+
+    //Get user data from user_data table in the database
+    const { data: userData, error: userDataError } = await supabase
+        .from("user_data")
+        .select("*")
+        .eq("id", signInData.user.id)
+        .single();
+
+    if (userDataError) throw new Error(userDataError.message);
+    console.log(signInData.user);
+
+    //Merge the data
+    const data = {
+        balance: userData.balance,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        ...signInData.user,
+    };
 
     //Return logged in user's data
     return data;
