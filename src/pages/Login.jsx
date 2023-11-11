@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useLogin } from "../features/authentication/useLogin";
 import PrimaryButton from "../ui/PrimaryButton";
+import Spinner from "../ui/Spinner";
 
 function Login() {
     const { register, handleSubmit, reset } = useForm();
@@ -15,6 +16,7 @@ function Login() {
 
     return (
         <>
+            {isLoading ? <Spinner /> : ""}
             <div>Log in</div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <label>Email</label>

@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { useSignup } from "../features/authentication/useSignup";
 import toast from "react-hot-toast";
 import PrimaryButton from "../ui/PrimaryButton";
+import Spinner from "../ui/Spinner";
 
 function Register() {
     const { register, handleSubmit } = useForm();
@@ -27,6 +28,7 @@ function Register() {
 
     return (
         <>
+            {isSigningUp ? <Spinner /> : ""}
             <div>Register</div>
             <form
                 className="flex flex-col w-80"
