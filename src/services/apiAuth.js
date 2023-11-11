@@ -19,15 +19,44 @@ export async function signInWithEmail({ email, password }) {
     return data;
 }
 
-export async function signUpWithEmail({ email, password }) {
+export async function signUpWithEmail({
+    firstName,
+    lastName,
+    email,
+    password,
+}) {
     //Sign up with Supabase
-    const { data, error } = await supabase.auth.signUp({
-        email: email,
-        password: password,
-    });
-
+    const { data: signUpData, error: signUpError } = await supabase.auth.signUp(
+        {
+            email: email,
+            password: password,
+        }
+    );
     //Check if login was successful
-    if (error) throw new Error(error.message);
+    if (signUpError) throw new Error(signUpError.message);
+
+    //Create user_data record
+    const {
+        data: [userData],
+        error: userDataError,
+    } = await supabase
+        .from("user_data")
+        .insert([
+            { id: signUpData.user.id, firstName, lastName, balance: 200000 },
+        ])
+        .select();
+
+    //Check if creating was successful
+    if (userDataError) throw new Error(userDataError.message);
+
+    console.log(userData);
+    //Join data
+    const data = {
+        balance: userData.balance,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        ...signUpData.user,
+    };
 
     //Return registered user's data
     return data;

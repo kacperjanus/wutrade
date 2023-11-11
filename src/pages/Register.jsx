@@ -5,15 +5,24 @@ import PrimaryButton from "../ui/PrimaryButton";
 
 function Register() {
     const { register, handleSubmit } = useForm();
-    const { signUp, isLoading } = useSignup();
+    const { signUp, isLoading: isSigningUp } = useSignup();
 
-    function onSubmit({ email, password, confirmPassword, username }) {
-        if (!email || !password || !confirmPassword || !username) return;
+    function onSubmit({
+        email,
+        password,
+        confirmPassword,
+        firstName,
+        lastName,
+    }) {
+        //Check if all the fields have been filled out
+        if (!email || !password || !confirmPassword || !firstName || !lastName)
+            return;
+        //Check if both passwords are the same
         if (password !== confirmPassword) {
             toast.error("Passwords have to match");
             return;
         }
-        signUp({ email, password });
+        signUp({ firstName, lastName, email, password });
     }
 
     return (
@@ -23,10 +32,16 @@ function Register() {
                 className="flex flex-col w-80"
                 onSubmit={handleSubmit(onSubmit)}
             >
-                <label>Username</label>
+                <label>First name</label>
                 <input
                     className="border-solid border-2"
-                    {...register("username")}
+                    {...register("firstName")}
+                    required
+                />
+                <label>Last name</label>
+                <input
+                    className="border-solid border-2"
+                    {...register("lastName")}
                     required
                 />
                 <label>Email</label>
