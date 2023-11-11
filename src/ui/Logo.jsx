@@ -1,5 +1,5 @@
 function Logo() {
-    return <img alt="WUTrade logo" src="../../public/wutrade-logo.png"></img>;
+    return <img alt="WUTrade logo" src="wutrade-logo.png"></img>;
 }
 
 export default Logo;
