@@ -20,7 +20,7 @@ function Login() {
                 <label>Email</label>
                 <input
                     className="border-solid border-2"
-                    defaultValue={"kacper@gmail.com"}
+                    defaultValue={"kacperjanus8@gmail.com"}
                     {...register("email")}
                 />
                 <label>Password</label>
