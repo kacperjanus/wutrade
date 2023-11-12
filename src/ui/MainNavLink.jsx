@@ -4,7 +4,7 @@ function MainNavLink({ to, children }) {
     return (
         <NavLink
             className={({ isActive }) =>
-                (isActive ? "text-white" : "") + "bg-sky-100 px-10 m-0"
+                isActive ? "text-white" : "text-slate-300"
             }
             to={to}
         >
