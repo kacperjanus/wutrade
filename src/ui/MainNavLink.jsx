@@ -4,7 +4,13 @@ function MainNavLink({ to, children }) {
     return (
         <NavLink
             className={({ isActive }) =>
-                isActive ? "text-white" : "text-slate-300"
+                [
+                    "rounded-lg px-10 py-2 my-2",
+                    " text-2xl",
+                    "hover:bg-sky-400 hover:bg-opacity-20",
+                    "flex gap-3 items-center",
+                    isActive ? "text-sky-600 bg-sky-600 bg-opacity-20" : "",
+                ].join(" ")
             }
             to={to}
         >
