@@ -17,7 +17,7 @@ export function useLogin() {
             navigate("/dashboard", { replace: true });
         },
         //If unsuccessful display appropriate message on the screen
-        onError: (err) => toast.error("Provided credentials are incorrect"),
+        onError: (err) => toast.error(err.message),
     });
 
     return { login, isLoading };
