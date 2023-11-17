@@ -2,38 +2,70 @@ import { useForm } from "react-hook-form";
 import { useLogin } from "../features/authentication/useLogin";
 import PrimaryButton from "../ui/PrimaryButton";
 import Spinner from "../ui/Spinner";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function Login() {
     const { register, handleSubmit, reset } = useForm();
     const { login, isLoading } = useLogin();
+    const navigate = useNavigate();
 
     function onSubmit({ email, password }) {
         //Check if both inputs are filled out
-        if (!email || !password) return;
+        if (!email || !password) {
+            toast.error("Fill out all the fields");
+            return;
+        }
         login({ email, password }, { onSettled: () => reset() });
         //TODO if isLoading === true add spinner
     }
 
+    const inputStyle =
+        "border-solid bg-slate-600 bg-opacity-50 rounded-full px-4 py-2 focus:outline-sky-500";
+
     return (
         <>
             {isLoading ? <Spinner /> : ""}
-            <div>Log in</div>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <label>Email</label>
-                <input
-                    className="border-solid border-2"
-                    defaultValue={"kacperjanus8@gmail.com"}
-                    {...register("email")}
-                />
-                <label>Password</label>
-                <input
-                    className="border-solid border-2"
-                    type="password"
-                    defaultValue={"kacper"}
-                    {...register("password")}
-                />
-                <PrimaryButton type="submit">Log in</PrimaryButton>
-            </form>
+            <div>
+                <div
+                    className="absolute mt-4 ml-4"
+                    onClick={() => navigate("/")}
+                >
+                    <PrimaryButton>GO BACK</PrimaryButton>
+                </div>
+                <div className="bg-[#282828] flex flex-col w-full h-screen items-center pt-20 gap-5">
+                    <div className="text-white text-4xl">LOG IN</div>
+                    <form
+                        className="flex flex-col w-[30rem] text-white gap-4"
+                        onSubmit={handleSubmit(onSubmit)}
+                    >
+                        <div className="flex flex-col">
+                            <label>Email</label>
+                            <input
+                                className={inputStyle}
+                                defaultValue={"kacperjanus8@gmail.com"}
+                                {...register("email")}
+                            />
+                        </div>
+                        <div className="flex flex-col">
+                            <label>Password</label>
+                            <input
+                                className={inputStyle}
+                                type="password"
+                                defaultValue={"kacper"}
+                                {...register("password")}
+                            />
+                        </div>
+                        <PrimaryButton type="submit">Log in</PrimaryButton>
+                    </form>
+                    <div className="text-white flex justify-center items-center">
+                        <h1>Don't have an account yet?</h1>
+                        <PrimaryButton onClick={() => navigate("/register")}>
+                            Register here
+                        </PrimaryButton>
+                    </div>
+                </div>
+            </div>
         </>
     );
 }
