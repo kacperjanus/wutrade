@@ -12,7 +12,7 @@ function Header() {
     const { data } = useQuery(["user"], () => getCurrentUser);
 
     return (
-        <header className="bg-[#282828] py-[1.2rem] px-[3.6rem] gap-[2.4rem] border-b-1 items-center justify-end grid grid-cols-[1fr,1fr,auto,auto]">
+        <header className="bg-[#282828] py-5 px-14 gap-10 border-b-1 items-center justify-end grid grid-cols-[1fr,1fr,auto,auto]">
             {isLoading ? <Spinner /> : ""}
             <h1 className="text-white">
                 Hello {data?.user_metadata.firstName}
