@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import PrimaryButton from "../ui/PrimaryButton";
 import Spinner from "../ui/Spinner";
 import { useNavigate } from "react-router-dom";
+import InputField from "../ui/InputField";
 
 function Register() {
     const { register, handleSubmit } = useForm();
@@ -36,9 +37,6 @@ function Register() {
         signUp({ firstName, lastName, email, password });
     }
 
-    const inputStyle =
-        "bg-slate-600 focus:outline-0 bg-opacity-50 rounded-full px-4 py-2 focus:shadow-lg focus:shadow-sky-300/20";
-
     return (
         <>
             {isSigningUp ? <Spinner /> : ""}
@@ -55,45 +53,33 @@ function Register() {
                         className="flex flex-col w-[30rem] text-white gap-4"
                         onSubmit={handleSubmit(onSubmit)}
                     >
-                        <div className="flex flex-col">
-                            <label className="ml-2 text-xl">First name</label>
-                            <input
-                                className={inputStyle}
-                                {...register("firstName")}
-                            />
-                        </div>
-                        <div className="flex flex-col">
-                            <label className="ml-2 text-xl">Last name</label>
-                            <input
-                                className={inputStyle}
-                                {...register("lastName")}
-                            />
-                        </div>
-                        <div className="flex flex-col">
-                            <label className="ml-2 text-xl">Email</label>
-                            <input
-                                className={inputStyle}
-                                {...register("email")}
-                            />
-                        </div>
-                        <div className="flex flex-col">
-                            <label className="ml-2 text-xl">Password</label>
-                            <input
-                                className={inputStyle}
-                                type="password"
-                                {...register("password")}
-                            />
-                        </div>
-                        <div className="flex flex-col">
-                            <label className="ml-2 text-xl">
-                                Confirm password
-                            </label>
-                            <input
-                                className={inputStyle}
-                                type="password"
-                                {...register("confirmPassword")}
-                            />
-                        </div>
+                        <InputField
+                            fieldName="firstName"
+                            label="First Name"
+                            registerFunction={register}
+                        />
+                        <InputField
+                            fieldName="lastName"
+                            label="Last Name"
+                            registerFunction={register}
+                        />
+                        <InputField
+                            fieldName="email"
+                            label="Email"
+                            registerFunction={register}
+                        />
+                        <InputField
+                            fieldName="password"
+                            label="Password"
+                            type="password"
+                            registerFunction={register}
+                        />
+                        <InputField
+                            fieldName="confirmPassword"
+                            label="Confirm Password"
+                            type="password"
+                            registerFunction={register}
+                        />
                         <PrimaryButton type="submit">Register</PrimaryButton>
                     </form>
                     <div className="text-white flex justify-center items-center">
