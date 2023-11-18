@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useLogin } from "../features/authentication/useLogin";
-import PrimaryButton from "../ui/PrimaryButton";
+import Button from "../ui/Button";
 import Spinner from "../ui/Spinner";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -28,7 +28,7 @@ function Login() {
                     className="absolute mt-4 ml-4"
                     onClick={() => navigate("/")}
                 >
-                    <PrimaryButton>GO BACK</PrimaryButton>
+                    <Button type="secondary">GO BACK</Button>
                 </div>
                 <div className="bg-[#282828] flex flex-col w-full h-screen items-center pt-20 gap-5">
                     <div className="text-white text-4xl">LOG IN</div>
@@ -49,13 +49,16 @@ function Login() {
                             type="password"
                             registerFunction={register}
                         />
-                        <PrimaryButton type="submit">Log in</PrimaryButton>
+                        <Button type="primary">Log in</Button>
                     </form>
                     <div className="text-white flex justify-center items-center">
                         <h1>Don't have an account yet?</h1>
-                        <PrimaryButton onClick={() => navigate("/register")}>
+                        <Button
+                            type="secondary"
+                            onClick={() => navigate("/register")}
+                        >
                             Register here
-                        </PrimaryButton>
+                        </Button>
                     </div>
                 </div>
             </div>

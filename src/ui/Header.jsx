@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useSignOut } from "../features/authentication/useSignout";
 import { getCurrentUser } from "../services/apiAuth";
-import PrimaryButton from "./PrimaryButton";
+import PrimaryButton from "./Button";
 import { formatCurrency } from "../utils/helpers";
 import Spinner from "./Spinner";
 import SeachBar from "./SearchBar";
@@ -21,7 +21,9 @@ function Header() {
             <h1 className="text-white">
                 Balance: {formatCurrency(data?.user_metadata.balance)}
             </h1>
-            <PrimaryButton onClick={() => signOut()}>Log out</PrimaryButton>
+            <PrimaryButton type="secondary" onClick={() => signOut()}>
+                Log out
+            </PrimaryButton>
         </header>
     );
 }

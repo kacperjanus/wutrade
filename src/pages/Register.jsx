@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useSignup } from "../features/authentication/useSignup";
 import toast from "react-hot-toast";
-import PrimaryButton from "../ui/PrimaryButton";
+import Button from "../ui/Button";
 import Spinner from "../ui/Spinner";
 import { useNavigate } from "react-router-dom";
 import InputField from "../ui/InputField";
@@ -45,7 +45,7 @@ function Register() {
                     className="absolute mt-4 ml-4"
                     onClick={() => navigate("/")}
                 >
-                    <PrimaryButton>GO BACK</PrimaryButton>
+                    <Button type="secondary">GO BACK</Button>
                 </div>
                 <div className="bg-[#282828] flex flex-col w-full h-screen items-center pt-20 gap-5">
                     <div className="text-white text-4xl">REGISTER</div>
@@ -80,13 +80,16 @@ function Register() {
                             type="password"
                             registerFunction={register}
                         />
-                        <PrimaryButton type="submit">Register</PrimaryButton>
+                        <Button type="primary">Register</Button>
                     </form>
                     <div className="text-white flex justify-center items-center">
                         <h1>Already have an account?</h1>
-                        <PrimaryButton onClick={() => navigate("/login")}>
+                        <Button
+                            type="secondary"
+                            onClick={() => navigate("/login")}
+                        >
                             Log in here
-                        </PrimaryButton>
+                        </Button>
                     </div>
                 </div>
             </div>
