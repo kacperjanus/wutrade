@@ -21,7 +21,7 @@ function Login() {
     }
 
     const inputStyle =
-        "border-solid bg-slate-600 bg-opacity-50 rounded-full px-4 py-2 focus:outline-sky-500";
+        "bg-slate-600 focus:outline-0 bg-opacity-50 rounded-full px-4 py-2 focus:shadow-lg focus:shadow-sky-300/20";
 
     return (
         <>
