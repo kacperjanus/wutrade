@@ -1,15 +1,16 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useSignOut } from "../features/authentication/useSignout";
-import { getCurrentUser } from "../services/apiAuth";
 import PrimaryButton from "./Button";
 import { formatCurrency } from "../utils/helpers";
 import FullSpinner from "./FullSpinner";
 import SeachBar from "./SearchBar";
+import { useEffect } from "react";
 
 function Header() {
     const { signOut, isLoading } = useSignOut();
+    const queryClient = useQueryClient();
 
-    const { data } = useQuery(["user"], () => getCurrentUser);
+    const data = queryClient.getQueryData(["user"]);
 
     return (
         <header className="bg-[#282828] py-5 px-14 gap-10 border-b-1 items-center justify-end grid grid-cols-[1fr,1fr,auto,auto]">
