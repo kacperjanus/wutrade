@@ -1,7 +1,10 @@
 import PageLayout from "../ui/PageLayout";
 import SectionHeader from "../ui/SectionHeader";
-import FullSpinner from "../ui/FullSpinner";
 import TopMovers from "../features/dashboard/TopMovers";
+import PortfolioValueGraph from "../features/dashboard/PortfolioValueGraph";
+import MostTraded from "../features/dashboard/MostTraded";
+import WatchlistPreview from "../features/dashboard/WatchlistPreview";
+import LeaderboardsPreview from "../features/dashboard/LeaderboardsPreview";
 
 function Dashboard() {
     // 1. Portfolio value chart
@@ -12,7 +15,13 @@ function Dashboard() {
     return (
         <PageLayout>
             <SectionHeader>Dashboard</SectionHeader>
-            <TopMovers />
+            <PortfolioValueGraph />
+            <div className="flex gap-6">
+                <TopMovers />
+                <MostTraded />
+            </div>
+            <WatchlistPreview />
+            <LeaderboardsPreview />
         </PageLayout>
     );
 }
