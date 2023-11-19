@@ -1,12 +1,18 @@
-function TopMover({ ticker, change_amount }) {
+import { formatCurrency } from "../../utils/helpers";
+
+function TopMover({ position, ticker, change_amount }) {
     return (
-        <li
+        <span
             className={`${
-                change_amount > 0 ? "text-green-500" : "text-red-500"
-            }`}
+                change_amount
+                    ? change_amount > 0
+                        ? "text-green-500"
+                        : "text-red-500"
+                    : ""
+            } text-lg font-medium`}
         >
-            1. {ticker} - {change_amount}
-        </li>
+            {position}. {ticker} - {formatCurrency(change_amount)}
+        </span>
     );
 }
 
