@@ -4,7 +4,7 @@ import TopMover from "./TopMover";
 import { useTopMovers } from "./useTopMovers";
 
 function MostTraded() {
-    const { data, isLoading } = useTopMovers;
+    const { data, isLoading } = useTopMovers();
 
     const displayData = data?.most_actively_traded?.slice(0, 5);
 
