@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useLogin } from "../features/authentication/useLogin";
 import Button from "../ui/Button";
-import Spinner from "../ui/Spinner";
+import FullSpinner from "../ui/FullSpinner";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import InputField from "../ui/InputField";
@@ -22,7 +22,7 @@ function Login() {
 
     return (
         <>
-            {isLoading ? <Spinner /> : ""}
+            {isLoading ? <FullSpinner /> : ""}
             <div>
                 <div
                     className="absolute mt-4 ml-4"

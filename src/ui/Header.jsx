@@ -3,7 +3,7 @@ import { useSignOut } from "../features/authentication/useSignout";
 import { getCurrentUser } from "../services/apiAuth";
 import PrimaryButton from "./Button";
 import { formatCurrency } from "../utils/helpers";
-import Spinner from "./Spinner";
+import FullSpinner from "./FullSpinner";
 import SeachBar from "./SearchBar";
 
 function Header() {
@@ -13,7 +13,7 @@ function Header() {
 
     return (
         <header className="bg-[#282828] py-5 px-14 gap-10 border-b-1 items-center justify-end grid grid-cols-[1fr,1fr,auto,auto]">
-            {isLoading ? <Spinner /> : ""}
+            {isLoading ? <FullSpinner /> : ""}
             <h1 className="text-white">
                 Hello {data?.user_metadata.firstName}
             </h1>

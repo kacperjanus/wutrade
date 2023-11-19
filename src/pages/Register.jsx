@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useSignup } from "../features/authentication/useSignup";
 import toast from "react-hot-toast";
 import Button from "../ui/Button";
-import Spinner from "../ui/Spinner";
+import FullSpinner from "../ui/FullSpinner";
 import { useNavigate } from "react-router-dom";
 import InputField from "../ui/InputField";
 
@@ -39,7 +39,7 @@ function Register() {
 
     return (
         <>
-            {isSigningUp ? <Spinner /> : ""}
+            {isSigningUp ? <FullSpinner /> : ""}
             <div>
                 <div
                     className="absolute mt-4 ml-4"
