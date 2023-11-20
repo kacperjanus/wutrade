@@ -58,3 +58,12 @@ export async function getCurrentUser() {
 
     return data?.user;
 }
+
+export async function updateUsersBalance({ balance }) {
+    const newBalance = { data: { balance } };
+
+    const { data, error } = supabase.auth.updateUser(newBalance);
+
+    if (error) throw new Error(error.message);
+    return data;
+}
