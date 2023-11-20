@@ -16,7 +16,7 @@ function MostTraded() {
             {displayData ? (
                 <ul>
                     {displayData?.map((mover, i) => (
-                        <li>
+                        <li key={mover.ticker}>
                             <TopMover
                                 position={i + 1}
                                 ticker={mover.ticker}
