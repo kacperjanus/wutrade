@@ -12,6 +12,7 @@ import Leaderboards from "./pages/Leaderboards";
 import Account from "./pages/Account";
 import { Toaster } from "react-hot-toast";
 import ProtectedRoute from "./ui/ProtectedRoute";
+import Explore from "./pages/Explore";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -48,6 +49,7 @@ function App() {
                             element={<Leaderboards />}
                         />
                         <Route path="/account" element={<Account />} />
+                        <Route path="/explore" element={<Explore />} />
                         <Route path="*" element="" />
                     </Route>
                 </Routes>

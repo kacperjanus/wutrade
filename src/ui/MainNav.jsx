@@ -5,6 +5,7 @@ import {
     HiHeart,
     HiUserGroup,
     HiIdentification,
+    HiSearch,
 } from "react-icons/hi";
 
 function MainNav() {
@@ -14,6 +15,12 @@ function MainNav() {
                 <MainNavLink to="/dashboard">
                     <HiHome />
                     <span>Dashboard</span>
+                </MainNavLink>
+            </li>
+            <li>
+                <MainNavLink to="/explore">
+                    <HiSearch />
+                    <span>Explore</span>
                 </MainNavLink>
             </li>
             <li>
