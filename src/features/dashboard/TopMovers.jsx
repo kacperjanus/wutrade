@@ -3,6 +3,7 @@ import ContentBox from "../../ui/ContentBox";
 import { useTopMovers } from "./useTopMovers";
 import FullSpinner from "../../ui/FullSpinner";
 import TopMover from "./TopMover";
+import Spinner from "../../ui/Spinner";
 
 function TopMovers() {
     const [gainers, setGainers] = useState(false);
@@ -16,7 +17,7 @@ function TopMovers() {
         : data?.top_losers?.slice(0, 5);
 
     return isGettingTopMovers ? (
-        <FullSpinner />
+        <Spinner />
     ) : (
         <ContentBox>
             <div className="flex flex-row justify-between items-center">

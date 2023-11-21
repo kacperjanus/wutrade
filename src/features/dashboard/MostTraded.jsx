@@ -1,5 +1,6 @@
 import ContentBox from "../../ui/ContentBox";
 import FullSpinner from "../../ui/FullSpinner";
+import Spinner from "../../ui/Spinner";
 import TopMover from "./TopMover";
 import { useTopMovers } from "./useTopMovers";
 
@@ -9,7 +10,7 @@ function MostTraded() {
     const displayData = data?.most_actively_traded?.slice(0, 5);
 
     return isLoading ? (
-        <FullSpinner />
+        <Spinner />
     ) : (
         <ContentBox>
             <h1>Most Traded</h1>
