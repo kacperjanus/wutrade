@@ -9,3 +9,11 @@ export async function getTopMovers() {
 
     return data;
 }
+
+export async function getStockFundamentalData({ stockId }) {
+    const data = await fetch(
+        `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${stockId}&apikey=${aplhavantageKey}`
+    ).then((res) => res.json());
+
+    return data;
+}
