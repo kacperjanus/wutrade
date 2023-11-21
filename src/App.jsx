@@ -13,6 +13,8 @@ import Account from "./pages/Account";
 import { Toaster } from "react-hot-toast";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import Explore from "./pages/Explore";
+import StockDetails from "./pages/StockDetails";
+import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -48,7 +50,11 @@ function App() {
                         />
                         <Route path="/account" element={<Account />} />
                         <Route path="/explore" element={<Explore />} />
-                        <Route path="*" element="" />
+                        <Route
+                            path="/explore/:stockId"
+                            element={<StockDetails />}
+                        />
+                        <Route path="*" element={<NotFound />} />
                     </Route>
                 </Routes>
             </BrowserRouter>
