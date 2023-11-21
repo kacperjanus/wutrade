@@ -17,12 +17,10 @@ import Explore from "./pages/Explore";
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
-            staleTime: 1000,
+            staleTime: 60 * 2000,
         },
     },
 });
-
-queryClient.setQueryDefaults(["user"], { staleTime: Infinity });
 
 function App() {
     return (
