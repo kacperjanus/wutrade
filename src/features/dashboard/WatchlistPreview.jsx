@@ -1,4 +1,5 @@
 import ContentBox from "../../ui/ContentBox";
+import Spinner from "../../ui/Spinner";
 import { useWatchlist } from "../watchlist/useWatchlist";
 import WatchlistItem from "../watchlist/watchlistItem";
 
@@ -6,7 +7,9 @@ function WatchlistPreview() {
     const { data, isLoading } = useWatchlist();
     data.slice(0, 5);
     console.log(data);
-    return (
+    return isLoading ? (
+        <Spinner />
+    ) : (
         <ContentBox>
             Watchlist
             <ul>
