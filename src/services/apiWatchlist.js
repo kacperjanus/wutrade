@@ -20,3 +20,14 @@ export async function removeFromWatchlist({ userId, stockId }) {
 
     if (error) throw new Error(error);
 }
+
+export async function getWatchlist({ userId }) {
+    const { data, error } = await supabase
+        .from("watchlist")
+        .select("*")
+        .eq("user_id", userId);
+
+    if (error) throw new Error(error);
+
+    return data;
+}
