@@ -1,5 +1,6 @@
 import { useStockFundamentalData } from "../features/stocks/useStockDetails";
 import AddToWatchlist from "../features/watchlist/AddToWatchlist";
+import { useWatchlist } from "../features/watchlist/useWatchlist";
 import ContentBox from "../ui/ContentBox";
 import FullSpinner from "../ui/FullSpinner";
 import SectionHeader from "../ui/SectionHeader";
@@ -7,8 +8,9 @@ import { formatCurrency } from "../utils/helpers";
 
 function StockDetails() {
     const { data, isLoading } = useStockFundamentalData();
+    const { data: watchlist, isLoading: isLoadingWatchlist } = useWatchlist();
 
-    return isLoading ? (
+    return isLoading || isLoadingWatchlist ? (
         <FullSpinner />
     ) : (
         <>
@@ -17,7 +19,7 @@ function StockDetails() {
                     <span className="font-medium">{data.Name}</span> (
                     {data.Symbol})
                 </SectionHeader>
-                <AddToWatchlist />
+                <AddToWatchlist watchlist={watchlist} />
             </div>
             <div className="flex flex-col gap-5">
                 <ContentBox>
