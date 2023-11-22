@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useAddToWatchList } from "./useAddToWatchlist";
 import { useRemoveFromWatchlist } from "./useRemoveFromWatchlist";
 import { useParams } from "react-router-dom";
-import { useWatchlist } from "./useWatchlist";
 
 function AddToWatchlist({ watchlist }) {
     const { isLoading: isAdding, addToWatchlist } = useAddToWatchList();
