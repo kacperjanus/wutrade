@@ -3,13 +3,22 @@ import Button from "../../ui/Button";
 import { useState } from "react";
 import { useAddToWatchList } from "./useAddToWatchlist";
 import { useRemoveFromWatchlist } from "./useRemoveFromWatchlist";
+import { useParams } from "react-router-dom";
+import { useWatchlist } from "./useWatchlist";
 
-function AddToWatchlist() {
-    const [added, setAdded] = useState(true);
+function AddToWatchlist({ watchlist }) {
     const { isLoading: isAdding, addToWatchlist } = useAddToWatchList();
     const { isLoading: isRemoving, removeFromWatchlist } =
         useRemoveFromWatchlist();
     const isLoading = isAdding || isRemoving;
+
+    const { stockId } = useParams();
+
+    const [added, setAdded] = useState(() =>
+        watchlist?.find((item) => item.stockId === stockId) ? true : false
+    );
+
+    //TODO refresh watchlist query after clicking the button
 
     return (
         <Button
@@ -18,7 +27,11 @@ function AddToWatchlist() {
             className="w-min"
             onClick={() => {
                 setAdded((a) => !a);
-                addToWatchlist();
+                if (added) {
+                    removeFromWatchlist();
+                } else {
+                    addToWatchlist();
+                }
             }}
         >
             {added ? <HiHeart color="red" /> : <HiOutlineHeart />}
