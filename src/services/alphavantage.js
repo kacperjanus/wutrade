@@ -1,1 +1,1 @@
-export const aplhavantageKey = "I4YGWJ7RA3TYHB65";
+export const aplhavantageKey = "ZSL2JVRBL10Q997A";
