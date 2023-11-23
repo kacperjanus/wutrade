@@ -17,3 +17,11 @@ export async function getStockFundamentalData({ stockId }) {
 
     return data;
 }
+
+export async function getStockIntradayPriceData({ stockId, interval }) {
+    const data = await fetch(
+        `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${stockId}&interval=${interval}&entitlement=delayed&apikey=${aplhavantageKey}`
+    ).then((res) => res.json());
+
+    return data;
+}
