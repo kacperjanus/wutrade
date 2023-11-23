@@ -5,8 +5,8 @@ import WatchlistItem from "../watchlist/watchlistItem";
 
 function WatchlistPreview() {
     const { data, isLoading } = useWatchlist();
-    data.slice(0, 5);
-    console.log(data);
+    data?.slice(0, 5);
+
     return isLoading ? (
         <Spinner />
     ) : (
