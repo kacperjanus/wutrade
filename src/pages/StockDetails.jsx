@@ -1,4 +1,6 @@
+import PriceGraph from "../features/stocks/PriceGraph";
 import { useStockFundamentalData } from "../features/stocks/useStockDetails";
+import { useStockPriceData } from "../features/stocks/useStockPriceData";
 import AddToWatchlist from "../features/watchlist/AddToWatchlist";
 import { useWatchlist } from "../features/watchlist/useWatchlist";
 import ContentBox from "../ui/ContentBox";
@@ -9,8 +11,13 @@ import { formatCurrency } from "../utils/helpers";
 function StockDetails() {
     const { data, isLoading } = useStockFundamentalData();
     const { data: watchlist, isLoading: isLoadingWatchlist } = useWatchlist();
+    const { data: prices, isLoading: isLoadingPriceGraph } = useStockPriceData({
+        interval: "5min",
+    });
 
-    return isLoading || isLoadingWatchlist ? (
+    //TODO create select button for different intervals
+
+    return isLoading || isLoadingWatchlist || isLoadingPriceGraph ? (
         <FullSpinner />
     ) : (
         <>
@@ -31,7 +38,9 @@ function StockDetails() {
                         <span>Sector: {data.Sector}</span>
                     </div>
                 </ContentBox>
-                <ContentBox>PRICE GRAPH</ContentBox>
+                <ContentBox>
+                    <PriceGraph prices={prices} />
+                </ContentBox>
                 <div className="flex flex-row gap-5">
                     <ContentBox>
                         <span className="font-bold">Financials</span>
@@ -41,14 +50,15 @@ function StockDetails() {
                                 {formatCurrency(data["MarketCapitalization"])}
                             </span>
                             <span>
-                                52-week-high:{" "}
+                                52-week-high:
                                 {formatCurrency(data["52WeekHigh"])}
                             </span>
                             <span>
                                 52-week-low: {formatCurrency(data["52WeekLow"])}
                             </span>
                             <span>
-                                Profit margin: {data["ProfitMargin"] * 100}%
+                                Profit margin:
+                                {(data["ProfitMargin"] * 100).toFixed(2)}%
                             </span>
                         </div>
                     </ContentBox>
