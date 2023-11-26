@@ -1,7 +1,22 @@
-function BuySellButtons() {
-    const handleBuy = function () {};
+import { useState } from "react";
+import Modal from "../../ui/Modal";
+import BuySellForm from "./BuySellForm";
 
-    const handleSell = function () {};
+function BuySellButtons({ company, price }) {
+    const [isOpenModal, setIsOpenModal] = useState(false);
+    const [isBuying, setIsBuying] = useState(false);
+
+    const changeModal = () => setIsOpenModal((s) => !s);
+
+    const handleBuy = () => {
+        setIsBuying(true);
+        changeModal();
+    };
+
+    const handleSell = () => {
+        setIsBuying(false);
+        changeModal();
+    };
 
     //TODO make button disabled based on the fact if the market is open
     return (
@@ -18,6 +33,16 @@ function BuySellButtons() {
             >
                 Sell
             </button>
+
+            {isOpenModal && (
+                <Modal closeFunction={changeModal}>
+                    <BuySellForm
+                        company={company}
+                        price={price}
+                        isBuying={isBuying}
+                    />
+                </Modal>
+            )}
         </div>
     );
 }

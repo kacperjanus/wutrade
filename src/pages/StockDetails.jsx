@@ -15,7 +15,6 @@ function StockDetails() {
     const { data: prices, isLoading: isLoadingPriceGraph } = useStockPriceData({
         interval: "5min",
     });
-
     //TODO create select button for different intervals
     //TODO add "You own ... shares of this company" ContentBox
 
@@ -29,7 +28,14 @@ function StockDetails() {
                     {data.Symbol})
                 </SectionHeader>
                 <AddToWatchlist watchlist={watchlist} />
-                <BuySellButtons />
+                <BuySellButtons
+                    company={data.Symbol}
+                    price={
+                        Object.values(prices["Time Series (5min)"])[0][
+                            "1. open"
+                        ]
+                    }
+                />
             </div>
             <div className="flex flex-col gap-5">
                 <ContentBox>
