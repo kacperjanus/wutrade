@@ -9,10 +9,19 @@ export function useRemoveFromWatchlist() {
     const userData = queryClient.getQueryData(["user"]);
 
     const { mutate: removeFromWatchlist, isLoading } = useMutation({
-        mutationFn: () =>
-            removeFromWatchlistApi({ stockId: stockId, userId: userData.id }),
-        onSuccess: () =>
-            toast.success(`${stockId} successfully removed from watchlist`),
+        mutationFn: (externalStockId) =>
+            removeFromWatchlistApi({
+                stockId: externalStockId ? externalStockId : stockId,
+                userId: userData.id,
+            }),
+        onSuccess: () => {
+            toast.success(
+                stockId
+                    ? `${stockId} successfully removed from watchlist`
+                    : "Successfully removed from watchlist"
+            );
+            queryClient.invalidateQueries(["watchlist"]);
+        },
         onError: () => toast.error("Something went wrong"),
     });
 
