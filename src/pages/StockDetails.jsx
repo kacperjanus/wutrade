@@ -1,3 +1,4 @@
+import BuySellButtons from "../features/stocks/BuySellButtons";
 import PriceGraph from "../features/stocks/PriceGraph";
 import { useStockFundamentalData } from "../features/stocks/useStockDetails";
 import { useStockPriceData } from "../features/stocks/useStockPriceData";
@@ -16,17 +17,19 @@ function StockDetails() {
     });
 
     //TODO create select button for different intervals
+    //TODO add "You own ... shares of this company" ContentBox
 
     return isLoading || isLoadingWatchlist || isLoadingPriceGraph ? (
         <FullSpinner />
     ) : (
         <>
-            <div className="flex flex-row">
+            <div className="flex flex-row ">
                 <SectionHeader>
                     <span className="font-medium">{data.Name}</span> (
                     {data.Symbol})
                 </SectionHeader>
                 <AddToWatchlist watchlist={watchlist} />
+                <BuySellButtons />
             </div>
             <div className="flex flex-col gap-5">
                 <ContentBox>
@@ -50,14 +53,14 @@ function StockDetails() {
                                 {formatCurrency(data["MarketCapitalization"])}
                             </span>
                             <span>
-                                52-week-high:
+                                52-week-high:{" "}
                                 {formatCurrency(data["52WeekHigh"])}
                             </span>
                             <span>
                                 52-week-low: {formatCurrency(data["52WeekLow"])}
                             </span>
                             <span>
-                                Profit margin:
+                                Profit margin:{" "}
                                 {(data["ProfitMargin"] * 100).toFixed(2)}%
                             </span>
                         </div>
@@ -73,7 +76,8 @@ function StockDetails() {
                                 {formatCurrency(data["DividendPerShare"])}
                             </span>
                             <span>
-                                Dividend yield: {data["DividendYield"] * 100}%
+                                Dividend yield:{" "}
+                                {(data["DividendYield"] * 100).toFixed(2)}%
                             </span>
                         </div>
                     </ContentBox>
