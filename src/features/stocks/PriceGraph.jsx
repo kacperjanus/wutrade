@@ -20,18 +20,21 @@ function PriceGraph({ prices }) {
         return { time: item, price: Number(price[i]) };
     });
 
+    //TODO make reference line when the day changes within graph domain
+
     return (
         <ResponsiveContainer width="100%" height={300}>
             <LineChart data={data} margin={{ bottom: 30 }}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <Tooltip />
+                <CartesianGrid strokeDasharray="4" />
                 <XAxis dataKey="time" angle={290} tickSize={20} />
-                <YAxis domain={["auto", "auto"]} />
+                <YAxis unit="$" domain={["auto", "auto"]} />
                 <Tooltip />
                 <Line
                     type="monotone"
                     dataKey="price"
-                    stroke="#82ca9d"
+                    stroke="#0ea5e9"
+                    name="Price"
+                    unit="$"
                     dot={false}
                 />
             </LineChart>
