@@ -13,9 +13,11 @@ function WatchlistPreview() {
         <ContentBox>
             Watchlist
             <ul>
-                {data.map((item, i) => (
-                    <WatchlistItem item={item} key={i} />
-                ))}
+                {data.length !== 0
+                    ? data.map((item, i) => (
+                          <WatchlistItem item={item} key={i} />
+                      ))
+                    : "Watchlist is empty"}
             </ul>
         </ContentBox>
     );
