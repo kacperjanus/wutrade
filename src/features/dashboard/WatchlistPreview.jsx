@@ -5,7 +5,7 @@ import WatchlistItem from "../watchlist/watchlistItem";
 
 function WatchlistPreview() {
     const { data, isLoading } = useWatchlist();
-    data?.slice(0, 5);
+    const slicedWatchlist = data?.slice(0, 5);
 
     return isLoading ? (
         <Spinner />
@@ -13,8 +13,8 @@ function WatchlistPreview() {
         <ContentBox>
             Watchlist
             <ul>
-                {data.length !== 0
-                    ? data.map((item, i) => (
+                {slicedWatchlist.length !== 0
+                    ? slicedWatchlist.map((item, i) => (
                           <WatchlistItem item={item} key={i} />
                       ))
                     : "Watchlist is empty"}
