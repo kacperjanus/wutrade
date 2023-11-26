@@ -1,5 +1,5 @@
+import WatchlistContainter from "../features/watchlist/WatchlistContainter";
 import { useWatchlist } from "../features/watchlist/useWatchlist";
-import WatchlistItem from "../features/watchlist/watchlistItem";
 import ContentBox from "../ui/ContentBox";
 import PageLayout from "../ui/PageLayout";
 import SectionHeader from "../ui/SectionHeader";
@@ -14,15 +14,7 @@ function Watchlist() {
         <PageLayout>
             <SectionHeader>Watchlist</SectionHeader>
             <ContentBox>
-                <ul>
-                    {watchlist?.map((item, i) => (
-                        <WatchlistItem
-                            key={i}
-                            className="text-white"
-                            item={item}
-                        />
-                    ))}
-                </ul>
+                <WatchlistContainter watchlist={watchlist} />
             </ContentBox>
         </PageLayout>
     );
