@@ -10,7 +10,7 @@ import {
 
 function MainNav() {
     return (
-        <ul className="flex text-slate-300 flex-col text-left pt-10">
+        <ul className="flex text-slate-300 flex-col text-left pt-5">
             <li>
                 <MainNavLink to="/dashboard">
                     <HiHome />
