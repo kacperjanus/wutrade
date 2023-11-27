@@ -1,4 +1,4 @@
-import WatchlistItem from "./watchlistItem";
+import WatchlistItem from "./WatchlistItem";
 
 function WatchlistContainter({ watchlist }) {
     return (
