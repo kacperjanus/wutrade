@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import ContentBox from "../../ui/ContentBox";
 import Spinner from "../../ui/Spinner";
 import { useWatchlist } from "../watchlist/useWatchlist";
-import WatchlistItem from "../watchlist/watchlistItem";
+import WatchlistItem from "../watchlist/WatchlistItem";
 
 function WatchlistPreview() {
     const { data, isLoading } = useWatchlist();
