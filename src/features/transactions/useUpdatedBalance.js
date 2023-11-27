@@ -7,7 +7,6 @@ export function useUpdatedBalance() {
     const {
         user_metadata: { balance: currentBalance },
     } = queryClient.getQueryData(["user"]);
-    console.log(currentBalance);
 
     const { mutate: updateBalance, isLoading: isUpdatingBalance } = useMutation(
         {
@@ -17,7 +16,6 @@ export function useUpdatedBalance() {
                 }),
             onSuccess: () => {
                 queryClient.invalidateQueries(["user"]);
-                toast.success("Transaction successful");
             },
             onError: (err) => toast.error(err.message),
         }
