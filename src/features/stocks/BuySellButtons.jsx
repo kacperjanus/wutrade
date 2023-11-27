@@ -40,6 +40,7 @@ function BuySellButtons({ company, price }) {
                         company={company}
                         price={price}
                         isBuying={isBuying}
+                        closeFunction={changeModal}
                     />
                 </Modal>
             )}
