@@ -1,12 +1,10 @@
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-import { useQueryClient } from "@tanstack/react-query";
+import { useUser } from "../features/authentication/useUser";
 
 function AppLayout() {
-    const queryClient = useQueryClient();
-
-    const user = queryClient.getQueryData(["user"]);
+    const { user } = useUser();
     return (
         <div className="grid grid-cols-[26rem,_1fr] grid-rows-[auto,1fr] h-screen">
             <Header user={user} />
