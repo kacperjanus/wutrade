@@ -25,5 +25,9 @@ export function usePortfolio() {
         portfolio.push(portfolioItem);
     });
 
-    return queryClient.setQueryData(["portfolio"], portfolio);
+    //Return companies that user owns at least one share of
+    return queryClient.setQueryData(
+        ["portfolio"],
+        portfolio.filter((company) => company.noShares !== 0)
+    );
 }
