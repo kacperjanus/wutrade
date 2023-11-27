@@ -1,4 +1,4 @@
-import GoToStockButton from "../../ui/goToStockButton";
+import GoToStockButton from "../../ui/GoToStockButton";
 import BuySellButtons from "../stocks/BuySellButtons";
 
 function PortfolioItem({ company }) {
