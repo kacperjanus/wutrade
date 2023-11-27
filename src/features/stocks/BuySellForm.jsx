@@ -10,8 +10,9 @@ import { useUpdatedBalance } from "../transactions/useUpdatedBalance";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../../ui/Spinner";
 import { usePortfolio } from "../portfolio/usePortfolio";
+import { useStockPrice } from "../transactions/useStockPrice";
 
-function BuySellForm({ company, price, isBuying }) {
+function BuySellForm({ company, isBuying, closeFunction }) {
     const { register, handleSubmit } = useForm();
     const [buy, setBuy] = useState(isBuying);
     const [totalPrice, setTotalPrice] = useState(0);
@@ -22,6 +23,13 @@ function BuySellForm({ company, price, isBuying }) {
 
     const queryClient = useQueryClient();
     const userData = queryClient.getQueryData(["user"]);
+
+    const { data: globalQuote, isLoading } = useStockPrice({
+        stockId: company,
+    });
+
+    const price =
+        globalQuote?.["Global Quote - DATA DELAYED BY 15 MINUTES"]["02. open"];
 
     const navigate = useNavigate();
 
@@ -48,16 +56,24 @@ function BuySellForm({ company, price, isBuying }) {
             updateBalance(-totalPrice);
 
             //Update user's portfolio
+            queryClient.invalidateQueries(["transactions"]);
             queryClient.invalidateQueries(["portfolio"]);
 
             //Send toast notification
             toast.success(`You just bought ${noShares} shares of ${company}`);
 
             //Close modal and redirect to /portfolio
+            closeFunction();
             navigate("/portfolio");
         } else {
             //Check if users has that many shares as he wants to sell
-            if (!portfolio.find((c) => c.company === company)) {
+            const portfolioContainsCompany = portfolio.find(
+                (c) => c.company === company
+            );
+            if (
+                !portfolioContainsCompany ||
+                noShares > portfolioContainsCompany.noShares
+            ) {
                 toast.error("You don't own that many shares");
                 return;
             }
@@ -69,18 +85,19 @@ function BuySellForm({ company, price, isBuying }) {
                 quantity: -noShares,
                 pricePerShare: price,
             });
-            console.log("SOLD");
 
             //If creating transaction is successful, update user's balance
             updateBalance(totalPrice);
 
             //Update user's portfolio
+            queryClient.invalidateQueries(["transactions"]);
             queryClient.invalidateQueries(["portfolio"]);
 
             //Send toast notification
             toast.success(`You just sold ${noShares} shares of ${company}`);
 
             //Close modal and navigate to Portfolio page
+            closeFunction();
             navigate("/portfolio");
         }
     }
@@ -89,7 +106,7 @@ function BuySellForm({ company, price, isBuying }) {
         setTotalPrice(e.target.value * price);
     }
 
-    return isAddingTransaction || isUpdatingBalance ? (
+    return isAddingTransaction || isUpdatingBalance || isLoading ? (
         <Spinner />
     ) : (
         <div className="flex flex-col">

@@ -25,3 +25,14 @@ export async function getStockIntradayPriceData({ stockId, interval }) {
 
     return data;
 }
+
+export async function getStockPrice({ stockId }) {
+    // console.log(stockId);
+    const data = await fetch(
+        `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stockId}&entitlement=delayed&apikey=${aplhavantageKey}`
+    ).then((res) => res.json());
+
+    // console.log(data);
+
+    return data;
+}
