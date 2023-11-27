@@ -4,43 +4,84 @@ import Button from "../../ui/Button";
 import { useState } from "react";
 import { formatCurrency } from "../../utils/helpers";
 import toast from "react-hot-toast";
+import { useNewTransaction } from "../transactions/useNewTransaction";
+import { useQueryClient } from "@tanstack/react-query";
+import { useUpdatedBalance } from "../transactions/useUpdatedBalance";
+import { useNavigate } from "react-router-dom";
+import Spinner from "../../ui/Spinner";
+import { usePortfolio } from "../portfolio/usePortfolio";
 
 function BuySellForm({ company, price, isBuying }) {
     const { register, handleSubmit } = useForm();
     const [buy, setBuy] = useState(isBuying);
     const [totalPrice, setTotalPrice] = useState(0);
 
+    const { addTransaction, isLoading: isAddingTransaction } =
+        useNewTransaction();
+    const { updateBalance, isLoading: isUpdatingBalance } = useUpdatedBalance();
+
+    const queryClient = useQueryClient();
+    const userData = queryClient.getQueryData(["user"]);
+
+    const navigate = useNavigate();
+
+    const portfolio = usePortfolio();
+
     function onSubmit({ noShares }) {
+        if (!noShares) return;
         if (buy) {
             //Check if user's balance allows for the trasaction
+            if (totalPrice > userData.user_metadata.balance) {
+                toast.error("Balance unsufficient");
+                return;
+            }
 
             //If yes, create new transaction in the database
-
-            //If not, create error toast notification
+            addTransaction({
+                userId: userData.id,
+                stockId: company,
+                quantity: noShares,
+                pricePerShare: price,
+            });
 
             //If creating transaction is successful, update user's balance
+            updateBalance(-totalPrice);
 
             //Update user's portfolio
+            queryClient.invalidateQueries(["portfolio"]);
 
             //Send toast notification
             toast.success(`You just bought ${noShares} shares of ${company}`);
 
-            //Close modal
+            //Close modal and redirect to /portfolio
+            navigate("/portfolio");
         } else {
             //Check if users has that many shares as he wants to sell
+            if (!portfolio.find((c) => c.company === company)) {
+                toast.error("You don't own that many shares");
+                return;
+            }
 
             //If yes, create new transaction in the database
-
-            //If not, create error toast notification
+            addTransaction({
+                userId: userData.id,
+                stockId: company,
+                quantity: -noShares,
+                pricePerShare: price,
+            });
+            console.log("SOLD");
 
             //If creating transaction is successful, update user's balance
+            updateBalance(totalPrice);
 
             //Update user's portfolio
+            queryClient.invalidateQueries(["portfolio"]);
 
             //Send toast notification
             toast.success(`You just sold ${noShares} shares of ${company}`);
 
-            //Close modal
+            //Close modal and navigate to Portfolio page
+            navigate("/portfolio");
         }
     }
 
@@ -48,7 +89,9 @@ function BuySellForm({ company, price, isBuying }) {
         setTotalPrice(e.target.value * price);
     }
 
-    return (
+    return isAddingTransaction || isUpdatingBalance ? (
+        <Spinner />
+    ) : (
         <div className="flex flex-col">
             <div className="flex flex-row justify-between items-center">
                 <p className="text-2xl">{buy ? "Buy" : "Sell"} stocks</p>
