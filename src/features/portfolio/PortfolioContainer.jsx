@@ -1,12 +1,15 @@
+import Spinner from "../../ui/Spinner";
 import { useTransactions } from "../transactions/useTransactions";
 import PortfolioItem from "./PortfolioItem";
 import { usePortfolio } from "./usePortfolio";
 
 function PortfolioContainer() {
-    const { data, isLoading } = useTransactions();
+    const { isLoading } = useTransactions();
     const portfolio = usePortfolio();
 
-    return (
+    return isLoading ? (
+        <Spinner />
+    ) : (
         <ul>
             {portfolio?.map((company) => (
                 <PortfolioItem key={company.company} company={company} />
