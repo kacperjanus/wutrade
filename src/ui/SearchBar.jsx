@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { HiSearch } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
@@ -5,8 +6,12 @@ import { useNavigate } from "react-router-dom";
 function SeachBar() {
     const [search, setSearch] = useState("");
     const navigate = useNavigate();
+    const queryClient = useQueryClient();
 
     function handleSubmit(e) {
+        e.preventDefault();
+        queryClient.removeQueries(["stockPrice"]);
+        queryClient.removeQueries(["stockDetails"]);
         navigate(`/explore/${search}`);
         setSearch("");
     }
