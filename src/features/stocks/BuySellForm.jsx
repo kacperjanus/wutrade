@@ -55,10 +55,6 @@ function BuySellForm({ company, isBuying, closeFunction }) {
             //If creating transaction is successful, update user's balance
             updateBalance(-totalPrice);
 
-            //Update user's portfolio
-            queryClient.invalidateQueries(["transactions"]);
-            queryClient.invalidateQueries(["portfolio"]);
-
             //Send toast notification
             toast.success(`You just bought ${noShares} shares of ${company}`);
 
@@ -88,10 +84,6 @@ function BuySellForm({ company, isBuying, closeFunction }) {
 
             //If creating transaction is successful, update user's balance
             updateBalance(totalPrice);
-
-            //Update user's portfolio
-            queryClient.invalidateQueries(["transactions"]);
-            queryClient.invalidateQueries(["portfolio"]);
 
             //Send toast notification
             toast.success(`You just sold ${noShares} shares of ${company}`);
