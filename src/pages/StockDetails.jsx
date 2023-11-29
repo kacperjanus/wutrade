@@ -16,6 +16,7 @@ function StockDetails() {
 
     useEffect(() => {
         queryClient.removeQueries({ queryKey: ["stockDetails"] });
+        queryClient.removeQueries({ queryKey: ["stockPrice"] });
     }, [queryClient]);
 
     const { data, isLoading } = useStockFundamentalData();
