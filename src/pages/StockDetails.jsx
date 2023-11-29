@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import BuySellButtons from "../features/stocks/BuySellButtons";
 import PriceGraph from "../features/stocks/PriceGraph";
 import { useStockFundamentalData } from "../features/stocks/useStockDetails";
@@ -5,21 +6,29 @@ import { useStockPriceData } from "../features/stocks/useStockPriceData";
 import AddToWatchlist from "../features/watchlist/AddToWatchlist";
 import { useWatchlist } from "../features/watchlist/useWatchlist";
 import ContentBox from "../ui/ContentBox";
-import FullSpinner from "../ui/FullSpinner";
 import SectionHeader from "../ui/SectionHeader";
 import { formatCurrency } from "../utils/helpers";
+import { useEffect } from "react";
+import Spinner from "../ui/Spinner";
 
 function StockDetails() {
+    const queryClient = useQueryClient();
+
+    useEffect(() => {
+        queryClient.removeQueries({ queryKey: ["stockDetails"] });
+    }, [queryClient]);
+
     const { data, isLoading } = useStockFundamentalData();
     const { data: watchlist, isLoading: isLoadingWatchlist } = useWatchlist();
     const { data: prices, isLoading: isLoadingPriceGraph } = useStockPriceData({
         interval: "5min",
     });
+
     //TODO create select button for different intervals
     //TODO add "You own ... shares of this company" ContentBox
 
     return isLoading || isLoadingWatchlist || isLoadingPriceGraph ? (
-        <FullSpinner />
+        <Spinner />
     ) : (
         <>
             <div className="flex flex-row ">
