@@ -25,6 +25,8 @@ export function usePortfolio() {
         portfolio.push(portfolioItem);
     });
 
+    //TODO add price for each of the companies to portfolio object
+
     //Return companies that user owns at least one share of
     return queryClient.setQueryData(
         ["portfolio"],

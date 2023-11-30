@@ -17,8 +17,6 @@ function AddToWatchlist({ watchlist }) {
         watchlist?.find((item) => item.stockId === stockId) ? true : false
     );
 
-    //TODO refresh watchlist query after clicking the button
-
     return (
         <Button
             type="secondary"
