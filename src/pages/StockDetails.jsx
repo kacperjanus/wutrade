@@ -10,6 +10,7 @@ import SectionHeader from "../ui/SectionHeader";
 import { formatCurrency } from "../utils/helpers";
 import { useEffect } from "react";
 import Spinner from "../ui/Spinner";
+import { usePortfolio } from "../features/portfolio/usePortfolio";
 
 function StockDetails() {
     const queryClient = useQueryClient();
@@ -25,27 +26,47 @@ function StockDetails() {
         interval: "5min",
     });
 
+    const portfolio = usePortfolio();
+
     //TODO create select button for different intervals
-    //TODO add "You own ... shares of this company" ContentBox
 
     return isLoading || isLoadingWatchlist || isLoadingPriceGraph ? (
         <Spinner />
     ) : (
         <>
-            <div className="flex flex-row ">
-                <SectionHeader>
-                    <span className="font-medium">{data.Name}</span> (
-                    {data.Symbol})
-                </SectionHeader>
-                <AddToWatchlist watchlist={watchlist} />
-                <BuySellButtons
-                    company={data.Symbol}
-                    price={
-                        Object.values(prices["Time Series (5min)"])[0][
-                            "1. open"
-                        ]
-                    }
-                />
+            <div>
+                <div className="flex flex-row ">
+                    <SectionHeader>
+                        <span className="font-medium">{data.Name}</span> (
+                        {data.Symbol})
+                    </SectionHeader>
+                    <AddToWatchlist watchlist={watchlist} />
+                    <BuySellButtons
+                        company={data.Symbol}
+                        price={
+                            Object.values(prices["Time Series (5min)"])[0][
+                                "1. open"
+                            ]
+                        }
+                    />
+                </div>
+                <div>
+                    {portfolio?.find((item) => item.company === data.Symbol) ? (
+                        <span className="text-white">
+                            You own{" "}
+                            {
+                                portfolio?.find(
+                                    (item) => item.company === data.Symbol
+                                ).noShares
+                            }{" "}
+                            shares
+                        </span>
+                    ) : (
+                        <span className="text-white">
+                            You don't own any shares
+                        </span>
+                    )}
+                </div>
             </div>
             <div className="flex flex-col gap-5">
                 <ContentBox>
@@ -58,6 +79,7 @@ function StockDetails() {
                     </div>
                 </ContentBox>
                 <ContentBox>
+                    <span className="font-bold">Price graph</span>
                     <PriceGraph prices={prices} />
                 </ContentBox>
                 <div className="flex flex-row gap-5">
