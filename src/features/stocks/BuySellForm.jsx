@@ -36,7 +36,7 @@ function BuySellForm({ company, isBuying, closeFunction }) {
     const portfolio = usePortfolio();
 
     function onSubmit({ noShares }) {
-        if (!noShares) return;
+        if (!noShares || noShares === "0") return;
         if (buy) {
             //Check if user's balance allows for the trasaction
             if (totalPrice > userData.user_metadata.balance) {
@@ -101,7 +101,7 @@ function BuySellForm({ company, isBuying, closeFunction }) {
     return isAddingTransaction || isUpdatingBalance || isLoading ? (
         <Spinner />
     ) : (
-        <div className="flex flex-col">
+        <div className="flex flex-col w-96 h-72 mb-10">
             <div className="flex flex-row justify-between items-center">
                 <p className="text-2xl">{buy ? "Buy" : "Sell"} stocks</p>
                 <Button onClick={() => setBuy((s) => !s)} type="secondary">
