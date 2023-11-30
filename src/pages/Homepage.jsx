@@ -5,7 +5,7 @@ function Homepage() {
     return (
         <div className="flex flex-row">
             <div className="bg-black flex flex-col h-screen w-full text-white justify-center items-center">
-                <Logo />
+                <Logo size={250} />
             </div>
             <div className="bg-[#282828] h-screen w-full flex flex-col justify-center items-center">
                 <Link
