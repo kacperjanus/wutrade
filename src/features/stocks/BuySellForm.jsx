@@ -99,7 +99,7 @@ function BuySellForm({ company, isBuying, closeFunction }) {
     }
 
     return isAddingTransaction || isUpdatingBalance || isLoading ? (
-        <Spinner />
+        <Spinner className={"bg-transparent"} />
     ) : (
         <div className="flex flex-col w-96 h-72 mb-10">
             <div className="flex flex-row justify-between items-center">
