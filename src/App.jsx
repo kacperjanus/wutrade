@@ -15,6 +15,7 @@ import ProtectedRoute from "./ui/ProtectedRoute";
 import Explore from "./pages/Explore";
 import StockDetails from "./pages/StockDetails";
 import NotFound from "./pages/NotFound";
+import Transactions from "./pages/Transactions";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -44,6 +45,10 @@ function App() {
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/portfolio" element={<Portfolio />} />
                         <Route path="/watchlist" element={<Watchlist />} />
+                        <Route
+                            path="/transactions"
+                            element={<Transactions />}
+                        />
                         <Route
                             path="/leaderboards"
                             element={<Leaderboards />}
