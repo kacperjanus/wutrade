@@ -1,49 +1,78 @@
+import { useLocation } from "react-router-dom";
 import MainNavLink from "./MainNavLink";
 import {
     HiHome,
+    HiOutlineHome,
     HiBriefcase,
     HiHeart,
     HiUserGroup,
     HiIdentification,
     HiSearch,
+    HiOutlineSearch,
+    HiOutlineBriefcase,
+    HiOutlineHeart,
+    HiOutlineUserGroup,
+    HiOutlineIdentification,
 } from "react-icons/hi";
 
 function MainNav() {
+    const { pathname } = useLocation();
+
     return (
         <ul className="flex text-slate-300 flex-col text-left pt-5">
             <li>
                 <MainNavLink to="/dashboard">
-                    <HiHome />
+                    {pathname === "/dashboard" ? <HiHome /> : <HiOutlineHome />}
                     <span>Dashboard</span>
                 </MainNavLink>
             </li>
             <li>
                 <MainNavLink to="/explore">
-                    <HiSearch />
+                    {pathname === "/explore" ? (
+                        <HiSearch />
+                    ) : (
+                        <HiOutlineSearch />
+                    )}
                     <span>Explore</span>
                 </MainNavLink>
             </li>
             <li>
                 <MainNavLink to="/portfolio">
-                    <HiBriefcase />
+                    {pathname === "/portfolio" ? (
+                        <HiBriefcase />
+                    ) : (
+                        <HiOutlineBriefcase />
+                    )}
                     <span>Portfolio</span>
                 </MainNavLink>
             </li>
             <li>
                 <MainNavLink to="/watchlist">
-                    <HiHeart />
+                    {pathname === "/watchlist" ? (
+                        <HiHeart />
+                    ) : (
+                        <HiOutlineHeart />
+                    )}
                     <span>Watchlist</span>
                 </MainNavLink>
             </li>
             <li>
                 <MainNavLink to="/leaderboards">
-                    <HiUserGroup />
+                    {pathname === "/leaderboards" ? (
+                        <HiUserGroup />
+                    ) : (
+                        <HiOutlineUserGroup />
+                    )}
                     <span>Leaderboards</span>
                 </MainNavLink>
             </li>
             <li>
                 <MainNavLink to="/account">
-                    <HiIdentification />
+                    {pathname === "/account" ? (
+                        <HiIdentification />
+                    ) : (
+                        <HiOutlineIdentification />
+                    )}
                     <span>Account</span>
                 </MainNavLink>
             </li>
