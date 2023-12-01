@@ -18,7 +18,7 @@ function PriceGraph({ prices }) {
         .reverse();
 
     const volume = Object.values(prices["Time Series (5min)"])
-        .map((item) => item["5. volume"])
+        .map((item) => item["5. volume"] / 1000)
         .reverse();
 
     const data = times.map((item, i) => {
@@ -51,6 +51,7 @@ function PriceGraph({ prices }) {
                     <YAxis
                         dataKey="volume"
                         yAxisId="right"
+                        unit="k"
                         orientation="right"
                         domain={["auto", "auto"]}
                     />
@@ -71,7 +72,7 @@ function PriceGraph({ prices }) {
                         dataKey="volume"
                         stroke="#0ea"
                         name="Volume"
-                        unit=" units"
+                        unit="k units"
                         yAxisId="right"
                         dot={false}
                         strokeWidth={2}
