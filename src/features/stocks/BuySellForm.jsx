@@ -36,33 +36,17 @@ function BuySellForm({ company, isBuying, closeFunction }) {
     const portfolio = usePortfolio();
 
     function onSubmit({ noShares }) {
+        //Check if number of shares field is filled out
         if (!noShares || noShares === "0") return;
+
+        //If user is buying, check if his balance allows for the transaction
+        //If the user is selling, check if his portfolio has enough shares
         if (buy) {
-            //Check if user's balance allows for the trasaction
             if (totalPrice > userData.user_metadata.balance) {
                 toast.error("Balance unsufficient");
                 return;
             }
-
-            //If yes, create new transaction in the database
-            addTransaction({
-                userId: userData.id,
-                stockId: company,
-                quantity: noShares,
-                pricePerShare: price,
-            });
-
-            //If creating transaction is successful, update user's balance
-            updateBalance(-totalPrice);
-
-            //Send toast notification
-            toast.success(`You just bought ${noShares} shares of ${company}`);
-
-            //Close modal and redirect to /portfolio
-            closeFunction();
-            navigate("/portfolio");
         } else {
-            //Check if users has that many shares as he wants to sell
             const portfolioContainsCompany = portfolio.find(
                 (c) => c.company === company
             );
@@ -73,25 +57,29 @@ function BuySellForm({ company, isBuying, closeFunction }) {
                 toast.error("You don't own that many shares");
                 return;
             }
-
-            //If yes, create new transaction in the database
-            addTransaction({
-                userId: userData.id,
-                stockId: company,
-                quantity: -noShares,
-                pricePerShare: price,
-            });
-
-            //If creating transaction is successful, update user's balance
-            updateBalance(totalPrice);
-
-            //Send toast notification
-            toast.success(`You just sold ${noShares} shares of ${company}`);
-
-            //Close modal and navigate to Portfolio page
-            closeFunction();
-            navigate("/portfolio");
         }
+
+        //Create new transaction in a database
+        addTransaction({
+            userId: userData.id,
+            stockId: company,
+            quantity: buy ? noShares : -noShares,
+            pricePerShare: price,
+        });
+
+        //Update user's balance
+        updateBalance(buy ? -totalPrice : totalPrice);
+
+        //Display toast noticiation
+        toast.success(
+            `You just ${
+                buy ? "bought" : "sold"
+            } ${noShares} shares of ${company}`
+        );
+
+        //Close the modal and navigate to portfolio tab
+        closeFunction();
+        navigate("/portfolio");
     }
 
     function handleNumberOfSharesChange(e) {
