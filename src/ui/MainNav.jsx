@@ -13,6 +13,8 @@ import {
     HiOutlineHeart,
     HiOutlineUserGroup,
     HiOutlineIdentification,
+    HiCurrencyDollar,
+    HiOutlineCurrencyDollar,
 } from "react-icons/hi";
 
 function MainNav() {
@@ -42,6 +44,16 @@ function MainNav() {
                         <HiBriefcase />
                     ) : (
                         <HiOutlineBriefcase />
+                    )}
+                    <span>Portfolio</span>
+                </MainNavLink>
+            </li>
+            <li>
+                <MainNavLink to="/transactions">
+                    {pathname === "/transactions" ? (
+                        <HiCurrencyDollar />
+                    ) : (
+                        <HiOutlineCurrencyDollar />
                     )}
                     <span>Portfolio</span>
                 </MainNavLink>
