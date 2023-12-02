@@ -14,9 +14,14 @@ function Transactions() {
             <SectionHeader>Transactions</SectionHeader>
             <ContentBox>
                 <ul>
-                    {data.map((transaction, i) => (
-                        <Transaction data={transaction} number={i + 1} />
-                    ))}
+                    {Object.values(data)
+                        .reverse()
+                        .map((transaction, i) => (
+                            <Transaction
+                                data={transaction}
+                                number={data.length - i}
+                            />
+                        ))}
                 </ul>
             </ContentBox>
             ;
