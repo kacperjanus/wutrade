@@ -18,6 +18,7 @@ function Transactions() {
                         .reverse()
                         .map((transaction, i) => (
                             <Transaction
+                                key={i}
                                 data={transaction}
                                 number={data.length - i}
                             />
