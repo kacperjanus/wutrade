@@ -1,9 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getStockIntradayPriceData } from "../../services/apiStockData";
-import { useParams } from "react-router-dom";
 
-export function useStockPriceData({ interval }) {
-    const { stockId } = useParams();
+export function useStockPriceData({ interval, stockId }) {
     const { isLoading, data, error } = useQuery({
         queryKey: ["stockPrice"],
         queryFn: () => getStockIntradayPriceData({ interval, stockId }),

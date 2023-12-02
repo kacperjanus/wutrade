@@ -11,9 +11,11 @@ import { formatCurrency } from "../utils/helpers";
 import { useEffect } from "react";
 import Spinner from "../ui/Spinner";
 import { usePortfolio } from "../features/portfolio/usePortfolio";
+import { useParams } from "react-router-dom";
 
 function StockDetails() {
     const queryClient = useQueryClient();
+    const { stockId } = useParams();
 
     useEffect(() => {
         queryClient.removeQueries({ queryKey: ["stockDetails"] });
@@ -24,6 +26,7 @@ function StockDetails() {
     const { data: watchlist, isLoading: isLoadingWatchlist } = useWatchlist();
     const { data: prices, isLoading: isLoadingPriceGraph } = useStockPriceData({
         interval: "5min",
+        stockId,
     });
 
     const portfolio = usePortfolio();
