@@ -55,7 +55,7 @@ function MainNav() {
                     ) : (
                         <HiOutlineCurrencyDollar />
                     )}
-                    <span>Portfolio</span>
+                    <span>Transactions</span>
                 </MainNavLink>
             </li>
             <li>
