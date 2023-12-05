@@ -4,7 +4,7 @@ import { getStockPrice } from "../../services/apiStockData";
 export function useStockPrice({ stockId }) {
     const { data, error, isLoading } = useQuery({
         queryFn: () => getStockPrice({ stockId }),
-        queryKey: ["transactionStock"],
+        queryKey: ["stockPrice", stockId],
     });
 
     if (error) throw new Error(error.message);
