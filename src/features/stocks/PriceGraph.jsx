@@ -8,9 +8,10 @@ import {
     XAxis,
     YAxis,
 } from "recharts";
+import Spinner from "../../ui/Spinner";
 
-function PriceGraph({ prices, interval }) {
-    if (!prices) return <p>Loading...</p>;
+function PriceGraph({ prices, interval, isLoadingPriceGraph }) {
+    if (isLoadingPriceGraph) return <Spinner />;
     const times = Object.keys(prices[`Time Series (${interval})`])
         .map((item) => item.substring(11, 16))
         .reverse();

@@ -13,12 +13,13 @@ import Spinner from "../ui/Spinner";
 import { usePortfolio } from "../features/portfolio/usePortfolio";
 import { useParams } from "react-router-dom";
 import IntervalFilter from "../features/stocks/IntervalFilter";
+import { useTransactions } from "../features/transactions/useTransactions";
 
 function StockDetails() {
     const queryClient = useQueryClient();
     const { stockId } = useParams();
 
-    const [priceInterval, setPriceInterval] = useState("60min");
+    const [priceInterval, setPriceInterval] = useState("1min");
 
     useEffect(() => {
         queryClient.removeQueries({ queryKey: ["stockDetails"] });
@@ -32,11 +33,13 @@ function StockDetails() {
         stockId,
     });
 
+    const { isLoading: isLoadingTransactions } = useTransactions();
     const portfolio = usePortfolio();
 
     //TODO create select button for different intervals
+    //TODO changing time interval from the default one should crash the page when changing the stock
 
-    return isLoading || isLoadingWatchlist || isLoadingPriceGraph ? (
+    return isLoading || isLoadingWatchlist || isLoadingTransactions ? (
         <Spinner />
     ) : (
         <>
@@ -80,9 +83,16 @@ function StockDetails() {
                 <ContentBox>
                     <p className="font-bold">Price graph</p>
                     <p>
-                        <IntervalFilter setPriceInterval={setPriceInterval} />
+                        <IntervalFilter
+                            priceInterval={priceInterval}
+                            setPriceInterval={setPriceInterval}
+                        />
                     </p>
-                    <PriceGraph prices={prices} interval={priceInterval} />
+                    <PriceGraph
+                        prices={prices}
+                        interval={priceInterval}
+                        isLoadingPriceGraph={isLoadingPriceGraph}
+                    />
                 </ContentBox>
                 <div className="flex flex-row gap-5">
                     <ContentBox>
