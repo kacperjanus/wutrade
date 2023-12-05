@@ -2,7 +2,7 @@ import WatchlistItem from "./WatchlistItem";
 
 function WatchlistContainter({ watchlist }) {
     return (
-        <ul className="flex flex-col gap-3 w-full ">
+        <ul className="flex flex-col w-full ">
             {watchlist.length !== 0
                 ? watchlist.map((item, i) => (
                       <WatchlistItem key={i} item={item} />
