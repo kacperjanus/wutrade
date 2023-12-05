@@ -15,7 +15,6 @@ function IntervalFilter(setPriceInterval) {
                 onChange={handleChange}
                 value={setPriceInterval.priceInterval}
                 className="text-black"
-                defaultValue={"60min"}
             >
                 <option value="1min">1 minute</option>
                 <option value="5min">5 minutes</option>
