@@ -8,14 +8,17 @@ import { useWatchlist } from "../features/watchlist/useWatchlist";
 import ContentBox from "../ui/ContentBox";
 import SectionHeader from "../ui/SectionHeader";
 import { formatCurrency } from "../utils/helpers";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Spinner from "../ui/Spinner";
 import { usePortfolio } from "../features/portfolio/usePortfolio";
 import { useParams } from "react-router-dom";
+import IntervalFilter from "../features/stocks/IntervalFilter";
 
 function StockDetails() {
     const queryClient = useQueryClient();
     const { stockId } = useParams();
+
+    const [priceInterval, setPriceInterval] = useState("60min");
 
     useEffect(() => {
         queryClient.removeQueries({ queryKey: ["stockDetails"] });
@@ -25,7 +28,7 @@ function StockDetails() {
     const { data, isLoading } = useStockFundamentalData();
     const { data: watchlist, isLoading: isLoadingWatchlist } = useWatchlist();
     const { data: prices, isLoading: isLoadingPriceGraph } = useStockPriceData({
-        interval: "5min",
+        interval: priceInterval,
         stockId,
     });
 
@@ -44,14 +47,7 @@ function StockDetails() {
                         {data.Symbol})
                     </SectionHeader>
                     <AddToWatchlist watchlist={watchlist} />
-                    <BuySellButtons
-                        company={data.Symbol}
-                        price={
-                            Object.values(prices["Time Series (5min)"])[0][
-                                "1. open"
-                            ]
-                        }
-                    />
+                    <BuySellButtons company={data.Symbol} />
                 </div>
                 <div>
                     {portfolio?.find((item) => item.company === data.Symbol) ? (
@@ -82,8 +78,11 @@ function StockDetails() {
                     </div>
                 </ContentBox>
                 <ContentBox>
-                    <span className="font-bold">Price graph</span>
-                    <PriceGraph prices={prices} />
+                    <p className="font-bold">Price graph</p>
+                    <p>
+                        <IntervalFilter setPriceInterval={setPriceInterval} />
+                    </p>
+                    <PriceGraph prices={prices} interval={priceInterval} />
                 </ContentBox>
                 <div className="flex flex-row gap-5">
                     <ContentBox>

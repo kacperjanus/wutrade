@@ -9,15 +9,16 @@ import {
     YAxis,
 } from "recharts";
 
-function PriceGraph({ prices }) {
-    const times = Object.keys(prices["Time Series (5min)"])
+function PriceGraph({ prices, interval }) {
+    if (!prices) return <p>Loading...</p>;
+    const times = Object.keys(prices[`Time Series (${interval})`])
         .map((item) => item.substring(11, 16))
         .reverse();
-    const price = Object.values(prices["Time Series (5min)"])
+    const price = Object.values(prices[`Time Series (${interval})`])
         .map((item) => item["1. open"])
         .reverse();
 
-    const volume = Object.values(prices["Time Series (5min)"])
+    const volume = Object.values(prices[`Time Series (${interval})`])
         .map((item) => item["5. volume"] / 1000)
         .reverse();
 
