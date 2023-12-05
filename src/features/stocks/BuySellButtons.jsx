@@ -1,10 +1,18 @@
 import { useState } from "react";
 import Modal from "../../ui/Modal";
 import BuySellForm from "./BuySellForm";
+import { useStockPrice } from "../transactions/useStockPrice";
 
-function BuySellButtons({ company, price }) {
+function BuySellButtons({ company }) {
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [isBuying, setIsBuying] = useState(false);
+
+    const { data, isLoading: isLoadingPrice } = useStockPrice({
+        stockId: company,
+    });
+
+    const price =
+        data?.["Global Quote - DATA DELAYED BY 15 MINUTES"]?.["02. open"];
 
     const changeModal = () => setIsOpenModal((s) => !s);
 
