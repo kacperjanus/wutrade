@@ -1,4 +1,4 @@
-import PortfolioContainer from "../features/portfolio/PortfolioContainer";
+import PortfolioList from "../features/portfolio/PortfolioList";
 import ContentBox from "../ui/ContentBox";
 import SectionHeader from "../ui/SectionHeader";
 
@@ -7,7 +7,7 @@ function Portfolio() {
         <>
             <SectionHeader>Portfolio</SectionHeader>
             <ContentBox>
-                <PortfolioContainer />
+                <PortfolioList />
             </ContentBox>
         </>
     );

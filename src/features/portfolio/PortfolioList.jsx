@@ -3,13 +3,13 @@ import { useTransactions } from "../transactions/useTransactions";
 import PortfolioItem from "./PortfolioItem";
 import { usePortfolio } from "./usePortfolio";
 
-function PortfolioContainer() {
+function PortfolioList() {
     const { isLoading } = useTransactions();
     const portfolio = usePortfolio();
 
-    return isLoading ? (
-        <Spinner />
-    ) : (
+    if (isLoading) return <Spinner />;
+
+    return (
         <ul>
             {portfolio?.map((company) => (
                 <PortfolioItem key={company.company} company={company} />
@@ -18,4 +18,4 @@ function PortfolioContainer() {
     );
 }
 
-export default PortfolioContainer;
+export default PortfolioList;
