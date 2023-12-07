@@ -1,7 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import ContentBox from "../ui/ContentBox";
 import InputField from "../ui/InputField";
-import PageLayout from "../ui/PageLayout";
 import SectionHeader from "../ui/SectionHeader";
 import Button from "../ui/Button";
 import { useUpdatedBalance } from "../features/transactions/useUpdatedBalance";
@@ -18,7 +17,7 @@ function Account() {
 
     if (isLoading) return <Spinner />;
     return (
-        <PageLayout>
+        <>
             <SectionHeader>Account</SectionHeader>
             <ContentBox>
                 <form className="text-white flex flex-col gap-5">
@@ -65,7 +64,7 @@ function Account() {
                     Reset account
                 </Button>
             </div>
-        </PageLayout>
+        </>
     );
 }
 

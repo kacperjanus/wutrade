@@ -1,4 +1,3 @@
-import PageLayout from "../ui/PageLayout";
 import SectionHeader from "../ui/SectionHeader";
 import TopMovers from "../features/dashboard/TopMovers";
 import PortfolioValueGraph from "../features/dashboard/PortfolioValueGraph";
@@ -13,7 +12,7 @@ function Dashboard() {
     // 4. Leaderboard preview
 
     return (
-        <PageLayout>
+        <>
             <SectionHeader>Dashboard</SectionHeader>
             <PortfolioValueGraph />
             <div className="flex gap-6">
@@ -22,7 +21,7 @@ function Dashboard() {
             </div>
             <WatchlistPreview />
             <LeaderboardsPreview />
-        </PageLayout>
+        </>
     );
 }
 

@@ -25,7 +25,6 @@ function Transactions() {
                         ))}
                 </ul>
             </ContentBox>
-            ;
         </>
     );
 }

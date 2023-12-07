@@ -1,14 +1,11 @@
 import FeaturedStock from "../features/explore/FeaturedStock";
 import ContentBox from "../ui/ContentBox";
-import PageLayout from "../ui/PageLayout";
 import SectionHeader from "../ui/SectionHeader";
 
 function Explore() {
     return (
         <>
-            <PageLayout>
-                <SectionHeader>Explore</SectionHeader>
-            </PageLayout>
+            <SectionHeader>Explore</SectionHeader>
             <div className="flex flex-col gap-5">
                 <ContentBox>
                     <span className="font-bold">Featured stocks</span>
