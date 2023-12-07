@@ -4,11 +4,19 @@ import InputField from "../ui/InputField";
 import PageLayout from "../ui/PageLayout";
 import SectionHeader from "../ui/SectionHeader";
 import Button from "../ui/Button";
+import { useUpdatedBalance } from "../features/transactions/useUpdatedBalance";
+import Spinner from "../ui/Spinner";
 
 function Account() {
     const queryClient = useQueryClient();
     const user = queryClient.getQueryData(["user"]);
+    const { updateBalance, isLoading } = useUpdatedBalance();
 
+    function resetAccount() {
+        updateBalance(200000 - user.user_metadata.balance);
+    }
+
+    if (isLoading) return <Spinner />;
     return (
         <PageLayout>
             <SectionHeader>Account</SectionHeader>
@@ -48,6 +56,15 @@ function Account() {
                     <Button type="secondary">Change password</Button>
                 </form>
             </ContentBox>
+            <div className="flex justify-center">
+                <Button
+                    onClick={resetAccount}
+                    type="danger"
+                    className={"w-[120px]"}
+                >
+                    Reset account
+                </Button>
+            </div>
         </PageLayout>
     );
 }
