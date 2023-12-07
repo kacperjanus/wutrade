@@ -7,6 +7,7 @@ function Button({ onClick, type, className, disabled, children }) {
                 type === "secondary"
                     ? "bg-blue-300 bg-opacity-30 hover:bg-opacity-100 transition duration-500 ease-in-out"
                     : "",
+                type === "danger" ? "bg-red-500" : "",
                 className,
             ].join(" ")}
             onClick={onClick}
