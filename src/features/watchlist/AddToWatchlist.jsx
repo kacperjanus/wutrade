@@ -21,7 +21,7 @@ function AddToWatchlist({ watchlist }) {
         <Button
             type="secondary"
             disabled={isLoading}
-            className="w-min"
+            className="w-min self-center"
             onClick={() => {
                 setAdded((a) => !a);
                 if (added) {

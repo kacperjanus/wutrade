@@ -28,7 +28,7 @@ function BuySellButtons({ company }) {
 
     //TODO make button disabled based on the fact if the market is open
     return (
-        <div className="text-white ml-auto mr-2 flex flex-row gap-2">
+        <div className="text-white ml-auto mr-2 flex flex-row gap-2 self-center">
             <button
                 onClick={handleBuy}
                 className="bg-green-500 bg-opacity-60 rounded-lg py-1 px-4"
