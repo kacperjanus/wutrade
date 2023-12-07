@@ -14,6 +14,7 @@ import { usePortfolio } from "../features/portfolio/usePortfolio";
 import { useParams } from "react-router-dom";
 import IntervalFilter from "../features/stocks/IntervalFilter";
 import { useTransactions } from "../features/transactions/useTransactions";
+import NotFound from "./NotFound";
 
 function StockDetails() {
     const queryClient = useQueryClient();
@@ -39,8 +40,11 @@ function StockDetails() {
     //TODO create select button for different intervals
     //TODO changing time interval from the default one should crash the page when changing the stock
 
-    return isLoading || isLoadingWatchlist || isLoadingTransactions ? (
-        <Spinner />
+    if (isLoading || isLoadingWatchlist || isLoadingTransactions)
+        return <Spinner />;
+
+    return Object.keys(data).length === 0 ? (
+        <NotFound />
     ) : (
         <>
             <div>
