@@ -7,9 +7,8 @@ import Spinner from "../ui/Spinner";
 function Watchlist() {
     const { data: watchlist, isLoading } = useWatchlist();
 
-    return isLoading ? (
-        <Spinner />
-    ) : (
+    if (isLoading) return <Spinner />;
+    return (
         <>
             <SectionHeader>Watchlist</SectionHeader>
             <ContentBox>
