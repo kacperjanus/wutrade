@@ -5,6 +5,8 @@ import { useTransactions } from "./useTransactions";
 function TransactionList() {
     const { data, isLoading } = useTransactions();
 
+    //TODO implement pagination
+
     if (isLoading) return <Spinner />;
     return (
         <ul>

@@ -12,7 +12,12 @@ function Account() {
     const { updateBalance, isLoading } = useUpdatedBalance();
 
     function resetAccount() {
+        //Reset balance
         updateBalance(200000 - user.user_metadata.balance);
+
+        //Clear user's watchlist
+
+        //Clear user's portfolio
     }
 
     if (isLoading) return <Spinner />;
