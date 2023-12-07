@@ -1,8 +1,10 @@
 import { HiTrash } from "react-icons/hi";
-import { Link } from "react-router-dom";
 import { useRemoveFromWatchlist } from "./useRemoveFromWatchlist";
 import { useStockPrice } from "../transactions/useStockPrice";
 import { formatCurrency } from "../../utils/helpers";
+import GoToStockButton from "../../ui/GoToStockButton";
+import BuySellButtons from "../stocks/BuySellButtons";
+import { useState } from "react";
 
 function WatchlistItem({ item }) {
     const { removeFromWatchlist, isLoading: isLoadingWatchlist } =
@@ -10,6 +12,8 @@ function WatchlistItem({ item }) {
     const handleClick = function () {
         removeFromWatchlist(item.stockId);
     };
+
+    const [show, setShow] = useState();
 
     const { data, isLoading: isLoadingPrice } = useStockPrice({
         stockId: item.stockId,
@@ -19,23 +23,32 @@ function WatchlistItem({ item }) {
 
     const isLoading = isLoadingPrice || isLoadingWatchlist;
 
-    return isLoading ? (
-        <p>Loading...</p>
-    ) : (
-        <li className="text-white ">
+    return (
+        <li
+            className="text-white p-2"
+            onMouseEnter={() => setShow(true)}
+            onMouseLeave={() => setShow(false)}
+        >
             <div className="flex flex-row justify-between">
-                <Link
-                    className="w-full py-3 px-2 hover:bg-sky-400 rounded-lg justify-between"
-                    to={`/explore/${item.stockId}`}
-                >
+                <div className="w-full rounded-lg justify-between">
                     <p>
                         {item.stockId} -{" "}
-                        {formatCurrency(Number(price).toFixed(2))} per share
+                        {isLoadingPrice
+                            ? "Loading..."
+                            : `${formatCurrency(
+                                  Number(price).toFixed(2)
+                              )} per share`}{" "}
                     </p>
-                </Link>
-                <button className="text-red-500 pl-8" onClick={handleClick}>
-                    <HiTrash />
-                </button>
+                </div>
+                {show ? (
+                    <button className="text-red-500 px-3" onClick={handleClick}>
+                        <HiTrash />
+                    </button>
+                ) : (
+                    ""
+                )}
+                <BuySellButtons company={item.stockId} />
+                <GoToStockButton company={item.stockId} />
             </div>
         </li>
     );
