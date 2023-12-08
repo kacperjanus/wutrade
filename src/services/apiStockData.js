@@ -26,6 +26,30 @@ export async function getStockIntradayPriceData({ stockId, interval }) {
     return data;
 }
 
+export async function getStockDailyPriceData({ stockId }) {
+    const data = await fetch(
+        `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockId}&apikey=${aplhavantageKey}`
+    ).then((res) => res.json());
+
+    return data;
+}
+
+export async function getStockWeeklyPriceData({ stockId }) {
+    const data = await fetch(
+        `https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=${stockId}&apikey=${aplhavantageKey}`
+    ).then((res) => res.json());
+
+    return data;
+}
+
+export async function getStockMonthlyPriceData({ stockId }) {
+    const data = await fetch(
+        `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=${stockId}&apikey=${aplhavantageKey}`
+    ).then((res) => res.json());
+
+    return data;
+}
+
 export async function getStockPrice({ stockId }) {
     const data = await fetch(
         `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stockId}&entitlement=delayed&apikey=${aplhavantageKey}`
