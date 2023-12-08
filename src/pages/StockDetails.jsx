@@ -21,6 +21,7 @@ function StockDetails() {
     const { stockId } = useParams();
 
     const [priceInterval, setPriceInterval] = useState("1min");
+    const [timeSeries, setTimeSeries] = useState("intra");
 
     useEffect(() => {
         queryClient.removeQueries({ queryKey: ["stockDetails"] });
@@ -31,6 +32,7 @@ function StockDetails() {
     const { data: watchlist, isLoading: isLoadingWatchlist } = useWatchlist();
     const { data: prices, isLoading: isLoadingPriceGraph } = useStockPriceData({
         interval: priceInterval,
+        series: timeSeries,
         stockId,
     });
 
@@ -86,15 +88,18 @@ function StockDetails() {
                 </ContentBox>
                 <ContentBox>
                     <p className="font-bold">Price graph</p>
-                    <p>
+                    <div>
                         <IntervalFilter
                             priceInterval={priceInterval}
                             setPriceInterval={setPriceInterval}
+                            timeSeries={timeSeries}
+                            setTimeSeries={setTimeSeries}
                         />
-                    </p>
+                    </div>
                     <PriceGraph
                         prices={prices}
                         interval={priceInterval}
+                        timeSeries={timeSeries}
                         isLoadingPriceGraph={isLoadingPriceGraph}
                     />
                 </ContentBox>

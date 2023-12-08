@@ -10,16 +10,23 @@ import {
 } from "recharts";
 import Spinner from "../../ui/Spinner";
 
-function PriceGraph({ prices, interval, isLoadingPriceGraph }) {
+function PriceGraph({ prices, interval, isLoadingPriceGraph, timeSeries }) {
     if (isLoadingPriceGraph) return <Spinner />;
-    const times = Object.keys(prices[`Time Series (${interval})`])
-        .map((item) => item.substring(11, 16))
-        .reverse();
-    const price = Object.values(prices[`Time Series (${interval})`])
+
+    const objectKey = {
+        intra: `Time Series (${interval})`,
+        daily: `Time Series (Daily)`,
+        weekly: `Weekly Time Series`,
+        monthly: `Monthly Time Series`,
+    };
+
+    const times = Object.keys(prices[objectKey[timeSeries]]).reverse();
+
+    const price = Object.values(prices[objectKey[timeSeries]])
         .map((item) => item["1. open"])
         .reverse();
 
-    const volume = Object.values(prices[`Time Series (${interval})`])
+    const volume = Object.values(prices[objectKey[timeSeries]])
         .map((item) => item["5. volume"] / 1000)
         .reverse();
 
@@ -31,7 +38,7 @@ function PriceGraph({ prices, interval, isLoadingPriceGraph }) {
         };
     });
 
-    //TODO make reference line when the day changes within graph domain
+    //TODO make reference line when the day changes within graph domain for intraday trading
 
     return (
         <div className="mt-3">
