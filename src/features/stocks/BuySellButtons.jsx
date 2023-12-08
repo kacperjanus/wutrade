@@ -7,12 +7,12 @@ function BuySellButtons({ company }) {
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [isBuying, setIsBuying] = useState(false);
 
-    const { data, isLoading: isLoadingPrice } = useStockPrice({
+    const { data } = useStockPrice({
         stockId: company,
     });
 
     const price =
-        data?.["Global Quote - DATA DELAYED BY 15 MINUTES"]?.["02. open"];
+        data?.["Global Quote - DATA DELAYED BY 15 MINUTES"]?.["05. price"];
 
     const changeModal = () => setIsOpenModal((s) => !s);
 
