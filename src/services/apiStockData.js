@@ -57,3 +57,13 @@ export async function getStockPrice({ stockId }) {
 
     return data;
 }
+
+export async function getMultipleStockPrices({ stocks }) {
+    const stockPrices = [];
+    for (let stockId of stocks) {
+        const data = await getStockPrice({ stockId });
+        stockPrices.push(data);
+    }
+
+    return stockPrices;
+}
