@@ -1,7 +1,4 @@
-import Spinner from "../../ui/Spinner";
-import { useTransactions } from "../transactions/useTransactions";
 import PortfolioItem from "./PortfolioItem";
-import { usePortfolio } from "./usePortfolio";
 
 function PortfolioList({ portfolio }) {
     return (

@@ -69,7 +69,6 @@ export function useStockPriceData({ interval, stockId, series }) {
         data = monthly;
         isLoading = isLoadingMonthly;
     }
-    console.log(data);
 
     if (series === "intra") {
         data = intra;
