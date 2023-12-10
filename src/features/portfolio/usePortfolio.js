@@ -1,11 +1,10 @@
 import { useQueryClient } from "@tanstack/react-query";
+import { useStockPrices } from "../transactions/useStockPrice";
 
 export function usePortfolio() {
     //Pull transaction data
     const queryClient = useQueryClient();
-    const transactions = queryClient.getQueryData(["transactions"]);
-
-    if (!transactions) return;
+    const transactions = queryClient.getQueryData(["transactions"]) || [];
 
     //Get unique companies in the transaction history
     const companies = [];
@@ -14,18 +13,33 @@ export function usePortfolio() {
         if (!companies.includes(values[i]?.stockId))
             companies.push(values[i].stockId);
 
+    //FIX hook is called with companies array being empty
+    const { data: prices, isLoading } = useStockPrices({
+        stocks: companies,
+    });
+
+    if (isLoading || !prices || prices.length === 0) return;
+
     //Create porfolio by summing up all transations related to single company in company array
     const portfolio = [];
-    companies.forEach((company) => {
-        const portfolioItem = { company: company, noShares: 0 };
+    companies.forEach((company, i) => {
+        const portfolioItem = {
+            company: company,
+            noShares: 0,
+            pricePerShare: 0,
+            totalValue: 0,
+        };
         for (let i = 0; i < values.length; i++)
             if (company === values[i].stockId)
                 portfolioItem.noShares += values[i].quantity;
 
+        portfolioItem.pricePerShare =
+            prices[i]["Global Quote - DATA DELAYED BY 15 MINUTES"]["05. price"];
+        portfolioItem.totalValue =
+            portfolioItem.pricePerShare * portfolioItem.noShares;
+
         portfolio.push(portfolioItem);
     });
-
-    //TODO add price for each of the companies to portfolio object
 
     //Return companies that user owns at least one share of
     return queryClient.setQueryData(

@@ -3,12 +3,7 @@ import { useTransactions } from "../transactions/useTransactions";
 import PortfolioItem from "./PortfolioItem";
 import { usePortfolio } from "./usePortfolio";
 
-function PortfolioList() {
-    const { isLoading } = useTransactions();
-    const portfolio = usePortfolio();
-
-    if (isLoading) return <Spinner />;
-
+function PortfolioList({ portfolio }) {
     return (
         <ul>
             {portfolio?.map((company) => (
