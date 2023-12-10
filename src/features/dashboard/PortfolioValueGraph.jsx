@@ -1,7 +1,16 @@
 import ContentBox from "../../ui/ContentBox";
+import PortfolioChart from "../portfolio/PortfolioChart";
+import { usePortfolio } from "../portfolio/usePortfolio";
 
 function PortfolioValueGraph() {
-    return <ContentBox>Portfolio value</ContentBox>;
+    const portfolio = usePortfolio();
+
+    return (
+        <ContentBox>
+            Portfolio value
+            <PortfolioChart portfolio={portfolio} />
+        </ContentBox>
+    );
 }
 
 export default PortfolioValueGraph;
