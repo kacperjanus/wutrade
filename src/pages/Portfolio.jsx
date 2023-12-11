@@ -7,19 +7,24 @@ import SectionHeader from "../ui/SectionHeader";
 import Spinner from "../ui/Spinner";
 
 function Portfolio() {
-    const { isLoading } = useTransactions();
-    const portfolio = usePortfolio();
+    const { isLoading: isLoadingTransactions } = useTransactions();
+    const { portfolio, isLoading: isLoadingPortfolio } = usePortfolio();
 
-    if (isLoading) return <Spinner />;
     return (
         <>
             <SectionHeader>Portfolio</SectionHeader>
-            <ContentBox>
-                <PortfolioChart portfolio={portfolio} />
-            </ContentBox>
-            <ContentBox>
-                <PortfolioList portfolio={portfolio} />
-            </ContentBox>
+            {isLoadingTransactions || isLoadingPortfolio ? (
+                <Spinner />
+            ) : (
+                <>
+                    <ContentBox>
+                        <PortfolioChart portfolio={portfolio} />
+                    </ContentBox>
+                    <ContentBox>
+                        <PortfolioList portfolio={portfolio} />
+                    </ContentBox>
+                </>
+            )}
         </>
     );
 }

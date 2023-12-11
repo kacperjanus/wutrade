@@ -18,7 +18,7 @@ export function usePortfolio() {
         stocks: companies,
     });
 
-    if (isLoading || !prices || prices.length === 0) return;
+    if (isLoading || !prices || prices.length === 0) return { isLoading: true };
 
     //Create porfolio by summing up all transations related to single company in company array
     const portfolio = [];
@@ -40,10 +40,11 @@ export function usePortfolio() {
 
         portfolio.push(portfolioItem);
     });
-
-    //Return companies that user owns at least one share of
-    return queryClient.setQueryData(
+    const finalPortfolio = queryClient.setQueryData(
         ["portfolio"],
         portfolio.filter((company) => company.noShares !== 0)
     );
+
+    //Return companies that user owns at least one share of
+    return { portfolio: finalPortfolio, isLoading: false };
 }
