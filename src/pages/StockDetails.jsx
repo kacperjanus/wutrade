@@ -37,7 +37,7 @@ function StockDetails() {
     });
 
     const { isLoading: isLoadingTransactions } = useTransactions();
-    const portfolio = usePortfolio();
+    const { portfolio } = usePortfolio();
 
     //TODO create select button for different intervals
     //TODO changing time interval from the default one should crash the page when changing the stock

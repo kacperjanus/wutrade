@@ -33,7 +33,7 @@ function BuySellForm({ company, isBuying, closeFunction }) {
 
     const navigate = useNavigate();
 
-    const portfolio = usePortfolio();
+    const { portfolio } = usePortfolio();
 
     function onSubmit({ noShares }) {
         //Check if number of shares field is filled out
