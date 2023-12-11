@@ -6,6 +6,15 @@ import {
     ResponsiveContainer,
     Tooltip,
 } from "recharts";
+import { formatCurrency } from "../../utils/helpers";
+
+const CustomTooltip = function ({ payload }) {
+    return (
+        <div className="bg-black p-6">
+            {payload[0]?.name}: {formatCurrency(payload[0]?.value)}
+        </div>
+    );
+};
 
 function PortfolioChart({ portfolio }) {
     const data = portfolio?.map((item) => {
@@ -24,6 +33,12 @@ function PortfolioChart({ portfolio }) {
 
     return (
         <div>
+            <p>
+                Portfolio value:{" "}
+                {formatCurrency(
+                    portfolio?.reduce((acc, item) => item.totalValue + acc, 0)
+                )}
+            </p>
             <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
                     <Pie
@@ -45,7 +60,7 @@ function PortfolioChart({ portfolio }) {
                         iconSize={15}
                         iconType="circle"
                     />
-                    <Tooltip />
+                    <Tooltip content={<CustomTooltip />} />
                 </PieChart>
             </ResponsiveContainer>
         </div>

@@ -9,22 +9,7 @@ function PortfolioValueGraph() {
 
     return (
         <ContentBox>
-            {isLoading ? (
-                <Spinner />
-            ) : (
-                <>
-                    <p>
-                        Portfolio value:{" "}
-                        {formatCurrency(
-                            portfolio?.reduce(
-                                (acc, item) => item.totalValue + acc,
-                                0
-                            )
-                        )}
-                    </p>
-                    <PortfolioChart portfolio={portfolio} />
-                </>
-            )}
+            {isLoading ? <Spinner /> : <PortfolioChart portfolio={portfolio} />}
         </ContentBox>
     );
 }
