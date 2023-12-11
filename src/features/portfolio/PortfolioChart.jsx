@@ -13,13 +13,13 @@ function PortfolioChart({ portfolio }) {
     });
 
     const colors = [
-        "#FF7F7F", // Slightly More Saturated Red
-        "#FFA500", // Slightly More Saturated Orange
-        "#7FFF7F", // Slightly More Saturated Green
-        "#FFFF00", // Slightly More Saturated Yellow
-        "#7F7FFF", // Slightly More Saturated Blue
-        "#BF8FBF", // Slightly More Saturated Indigo
-        "#D8BFD8", // Slightly More Saturated Violet
+        "#F57963",
+        "#FFD662",
+        "#4FAE95",
+        "#54C1FF",
+        "#8F47B3",
+        "#FF7C54",
+        "#5AEC6B",
     ];
 
     return (
