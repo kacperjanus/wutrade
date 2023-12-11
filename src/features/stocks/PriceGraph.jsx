@@ -20,7 +20,12 @@ function PriceGraph({ prices, interval, isLoadingPriceGraph, timeSeries }) {
         monthly: `Monthly Time Series`,
     };
 
-    const times = Object.keys(prices[objectKey[timeSeries]]).reverse();
+    const times =
+        timeSeries === "intra"
+            ? Object.keys(prices[objectKey[timeSeries]])
+                  .map((item) => item.substring(11, 16))
+                  .reverse()
+            : Object.keys(prices[objectKey[timeSeries]]).reverse();
 
     const price = Object.values(prices[objectKey[timeSeries]])
         .map((item) => item["1. open"])
@@ -42,13 +47,18 @@ function PriceGraph({ prices, interval, isLoadingPriceGraph, timeSeries }) {
 
     return (
         <div className="mt-3">
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={400}>
                 <LineChart
                     data={data}
-                    margin={{ bottom: 30, left: 30, right: 30 }}
+                    margin={{ bottom: 80, left: 30, right: 30 }}
                 >
                     <CartesianGrid strokeDasharray="5 5" vertical={false} />
-                    <XAxis dataKey="time" angle={290} tickSize={20} />
+                    <XAxis
+                        dataKey="time"
+                        angle={290}
+                        tickSize={timeSeries === "intra" ? 25 : 35}
+                        fontSize={timeSeries === "intra" ? 15 : 10}
+                    />
                     <YAxis
                         dataKey="price"
                         yAxisId="left"
