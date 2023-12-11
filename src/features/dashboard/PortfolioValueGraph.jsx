@@ -1,18 +1,30 @@
 import ContentBox from "../../ui/ContentBox";
+import Spinner from "../../ui/Spinner";
 import { formatCurrency } from "../../utils/helpers";
 import PortfolioChart from "../portfolio/PortfolioChart";
 import { usePortfolio } from "../portfolio/usePortfolio";
 
 function PortfolioValueGraph() {
-    const portfolio = usePortfolio();
+    const { isLoading, portfolio } = usePortfolio();
 
     return (
         <ContentBox>
-            Portfolio value:{" "}
-            {formatCurrency(
-                portfolio?.reduce((acc, item) => item.totalValue + acc, 0)
+            {isLoading ? (
+                <Spinner />
+            ) : (
+                <>
+                    <p>
+                        Portfolio value:{" "}
+                        {formatCurrency(
+                            portfolio?.reduce(
+                                (acc, item) => item.totalValue + acc,
+                                0
+                            )
+                        )}
+                    </p>
+                    <PortfolioChart portfolio={portfolio} />
+                </>
             )}
-            <PortfolioChart portfolio={portfolio} />
         </ContentBox>
     );
 }
