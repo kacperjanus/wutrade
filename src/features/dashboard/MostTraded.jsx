@@ -1,5 +1,4 @@
 import ContentBox from "../../ui/ContentBox";
-import FullSpinner from "../../ui/FullSpinner";
 import Spinner from "../../ui/Spinner";
 import TopMover from "./TopMover";
 import { useTopMovers } from "./useTopMovers";
@@ -18,11 +17,7 @@ function MostTraded() {
                 <ul>
                     {displayData?.map((mover, i) => (
                         <li key={mover.ticker}>
-                            <TopMover
-                                position={i + 1}
-                                ticker={mover.ticker}
-                                change_amount={mover.change_amount}
-                            />
+                            <TopMover position={i + 1} mover={mover} />
                         </li>
                     ))}
                 </ul>

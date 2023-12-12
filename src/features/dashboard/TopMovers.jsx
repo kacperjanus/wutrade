@@ -1,7 +1,6 @@
 import { useState } from "react";
 import ContentBox from "../../ui/ContentBox";
 import { useTopMovers } from "./useTopMovers";
-import FullSpinner from "../../ui/FullSpinner";
 import TopMover from "./TopMover";
 import Spinner from "../../ui/Spinner";
 
@@ -34,11 +33,7 @@ function TopMovers() {
                 <ul>
                     {displayData?.map((mover, i) => (
                         <li key={mover.ticker}>
-                            <TopMover
-                                position={i + 1}
-                                ticker={mover.ticker}
-                                change_amount={mover.change_amount}
-                            />
+                            <TopMover position={i + 1} mover={mover} />
                         </li>
                     ))}
                 </ul>
