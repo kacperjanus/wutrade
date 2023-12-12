@@ -67,3 +67,19 @@ export async function updateUsersBalance({ balance }) {
     if (error) throw new Error(error.message);
     return data;
 }
+
+export async function resetAccount({ userId }) {
+    const { error } = await supabase
+        .from("watchlist")
+        .delete()
+        .eq("user_id", userId);
+
+    if (error) throw new Error(error.message);
+
+    const { error: errorTransactions } = await supabase
+        .from("transactions")
+        .delete()
+        .eq("userId", userId);
+
+    if (errorTransactions) throw new Error(error.message);
+}
