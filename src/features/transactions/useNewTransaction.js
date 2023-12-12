@@ -8,6 +8,8 @@ export function useNewTransaction() {
             addTransactionApi({ userId, stockId, quantity, pricePerShare }),
         onSuccess: () => {
             queryClient.invalidateQueries(["transactions"]);
+            queryClient.invalidateQueries(["portfolio"]);
+            queryClient.removeQueries(["portfolioPrices"]);
         },
         onError: () => {},
     });
