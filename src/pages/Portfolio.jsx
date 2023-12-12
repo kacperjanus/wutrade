@@ -15,6 +15,13 @@ function Portfolio() {
             <SectionHeader>Portfolio</SectionHeader>
             {isLoadingTransactions || isLoadingPortfolio ? (
                 <Spinner />
+            ) : portfolio.length === 0 ? (
+                <ContentBox>
+                    <p className="text-white">
+                        Nothing to see here. Visit EXPLORE tab to make a
+                        transaction!
+                    </p>
+                </ContentBox>
             ) : (
                 <>
                     <ContentBox>

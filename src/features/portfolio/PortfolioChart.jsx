@@ -7,6 +7,7 @@ import {
     Tooltip,
 } from "recharts";
 import { formatCurrency } from "../../utils/helpers";
+import ContentBox from "../../ui/ContentBox";
 
 const CustomTooltip = function ({ payload }) {
     return (
@@ -31,7 +32,11 @@ function PortfolioChart({ portfolio }) {
         "#5AEC6B",
     ];
 
-    return (
+    return data.length === 0 ? (
+        <ContentBox>
+            Nothing to see here. Visit EXPLORE tab to make a transaction.
+        </ContentBox>
+    ) : (
         <div>
             <p>
                 Portfolio value:{" "}
