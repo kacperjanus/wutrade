@@ -19,7 +19,7 @@ export function usePortfolio() {
         stocks: companies,
     });
 
-    if (isLoading || !prices || prices.length === 0) return { isLoading: true };
+    if (isLoading) return { isLoading: true };
 
     //Create porfolio by summing up all transations related to single company in company array
     const portfolio = [];

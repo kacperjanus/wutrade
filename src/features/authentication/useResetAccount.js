@@ -14,8 +14,8 @@ export function useResetAccount() {
             navigate("/dashboard");
             queryClient.invalidateQueries(["watchlist"]);
             queryClient.invalidateQueries(["transactions"]);
-            queryClient.invalidateQueries(["portfolio"]);
-            queryClient.invalidateQueries(["portfolioPrices"]);
+            queryClient.removeQueries(["portfolio"]);
+            queryClient.removeQueries(["portfolioPrices"]);
         },
         onError: () => {
             toast.error("Couldn't reset the account");
