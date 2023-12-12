@@ -14,6 +14,7 @@ export function usePortfolio() {
             companies.push(values[i].stockId);
 
     //FIX hook is called with companies array being empty
+    //TODO pull the prices for companies that user has more than 0 number of shares
     const { data: prices, isLoading } = useStockPrices({
         stocks: companies,
     });
@@ -34,7 +35,9 @@ export function usePortfolio() {
                 portfolioItem.noShares += values[i].quantity;
 
         portfolioItem.pricePerShare =
-            prices[i]["Global Quote - DATA DELAYED BY 15 MINUTES"]["05. price"];
+            prices[i]?.["Global Quote - DATA DELAYED BY 15 MINUTES"][
+                "05. price"
+            ];
         portfolioItem.totalValue =
             portfolioItem.pricePerShare * portfolioItem.noShares;
 
