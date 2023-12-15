@@ -1,11 +1,11 @@
 import { useQueryClient } from "@tanstack/react-query";
-import ContentBox from "../ui/ContentBox";
-import InputField from "../ui/InputField";
 import SectionHeader from "../ui/SectionHeader";
 import Button from "../ui/Button";
 import { useUpdatedBalance } from "../features/transactions/useUpdatedBalance";
 import Spinner from "../ui/Spinner";
-import { useResetAccount } from "../features/authentication/useResetAccount";
+import { useResetAccount } from "../features/account/useResetAccount";
+import EditUserMetadataForm from "../features/account/EditUserMetadataForm";
+import EditUserPasswordForm from "../features/account/EditUserPasswordForm";
 
 function Account() {
     const queryClient = useQueryClient();
@@ -13,6 +13,7 @@ function Account() {
     const { updateBalance, isLoading } = useUpdatedBalance();
     const { resetAccount, isLoading: isResettingAccount } = useResetAccount();
 
+    //TODO add modal to confirm reseting the account
     function handleResetAccount() {
         //Reset balance
         updateBalance(200000 - user.user_metadata.balance);
@@ -23,42 +24,8 @@ function Account() {
     return (
         <>
             <SectionHeader>Account</SectionHeader>
-            <ContentBox>
-                <form className="text-white flex flex-col gap-5">
-                    <InputField
-                        registerFunction={() => {}}
-                        label="First name"
-                        defaultValue={user?.user_metadata?.firstName}
-                    />
-                    <InputField
-                        registerFunction={() => {}}
-                        label="Last name"
-                        defaultValue={user?.user_metadata?.lastName}
-                    />
-                    <InputField
-                        registerFunction={() => {}}
-                        label="Email"
-                        defaultValue={user.email}
-                    />
-                </form>
-            </ContentBox>
-            <ContentBox>
-                <form className="text-white flex flex-col gap-5">
-                    <InputField
-                        registerFunction={() => {}}
-                        label="Old password"
-                    />
-                    <InputField
-                        registerFunction={() => {}}
-                        label="New Password"
-                    />
-                    <InputField
-                        registerFunction={() => {}}
-                        label="Confirm New Password"
-                    />
-                    <Button type="secondary">Change password</Button>
-                </form>
-            </ContentBox>
+            <EditUserMetadataForm user={user} />
+            <EditUserPasswordForm />
             <div className="flex justify-center">
                 <Button
                     onClick={handleResetAccount}

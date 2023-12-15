@@ -83,3 +83,22 @@ export async function resetAccount({ userId }) {
 
     if (errorTransactions) throw new Error(error.message);
 }
+
+export async function updateCurrentUser({
+    password,
+    firstName,
+    lastName,
+    email,
+}) {
+    let updateData;
+    if (password) updateData = { password };
+    if (firstName) updateData = { data: { firstName } };
+    if (lastName) updateData = { data: { lastName } };
+    if (email) updateData = { email };
+    const { data: updatedUser, error } = await supabase.auth.updateUser(
+        updateData
+    );
+
+    if (error) throw new Error(error.message);
+    return updatedUser;
+}
