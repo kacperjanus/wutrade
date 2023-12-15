@@ -6,6 +6,7 @@ import Spinner from "../ui/Spinner";
 import { useResetAccount } from "../features/account/useResetAccount";
 import EditUserMetadataForm from "../features/account/EditUserMetadataForm";
 import EditUserPasswordForm from "../features/account/EditUserPasswordForm";
+import AccountStats from "../features/account/AccountStats";
 
 function Account() {
     const queryClient = useQueryClient();
@@ -24,6 +25,7 @@ function Account() {
     return (
         <>
             <SectionHeader>Account</SectionHeader>
+            <AccountStats />
             <EditUserMetadataForm user={user} />
             <EditUserPasswordForm />
             <div className="flex justify-center">
