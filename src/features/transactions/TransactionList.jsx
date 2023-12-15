@@ -4,6 +4,8 @@ import Spinner from "../../ui/Spinner";
 import Transaction from "./Transaction";
 import { useTransactions } from "./useTransactions";
 import Button from "../../ui/Button";
+import PageSelector from "../../ui/PageSelector";
+import { ITEMS_PER_PAGE } from "../../utils/constants";
 
 function TransactionList() {
     const { data, isLoading } = useTransactions();
@@ -15,6 +17,9 @@ function TransactionList() {
     //Allows for filtering transactions by dates
     const [dateFilter, setDateFilter] = useState();
 
+    //Pagination
+    const [page, setPage] = useState(1);
+
     //Get all unique companies in transactions
     const companies = [];
     const values = Object.values(data);
@@ -23,6 +28,9 @@ function TransactionList() {
             companies.push(values[i].stockId);
 
     let filteredData = data;
+    let pagedData;
+
+    //Apply sell/buy filter
     filteredData = filteredData.filter((transaction) =>
         sellBuyFilter === ""
             ? transaction
@@ -31,10 +39,22 @@ function TransactionList() {
             : transaction.quantity < 0
     );
 
-    if (filteredCompanies.length > 0)
+    //Apply company filter
+    if (filteredCompanies.length > 0) {
         filteredData = filteredData.filter((companyData) =>
             filteredCompanies.find((company) => company === companyData.stockId)
         );
+    }
+
+    //Display only transactions for current page
+    if (filteredData.length > ITEMS_PER_PAGE) {
+        pagedData = filteredData.slice(
+            (page - 1) * ITEMS_PER_PAGE,
+            page * ITEMS_PER_PAGE
+        );
+    } else {
+        pagedData = filteredData;
+    }
 
     if (isLoading) return <Spinner />;
     return (
@@ -44,7 +64,10 @@ function TransactionList() {
                     <select
                         value={sellBuyFilter}
                         className="text-white bg-black px-2 py-1"
-                        onChange={(e) => setSellBuyFilter(e.target.value)}
+                        onChange={(e) => {
+                            setPage(1);
+                            setSellBuyFilter(e.target.value);
+                        }}
                     >
                         <option value="">All transactions</option>
                         <option value="buy">Buy transactions</option>
@@ -54,6 +77,7 @@ function TransactionList() {
                         value={filteredCompanies}
                         className="text-white bg-black px-2 py-1"
                         onChange={(e) => {
+                            setPage(1);
                             filteredCompanies.find(
                                 (company) => company === e.target.value
                             )
@@ -98,17 +122,22 @@ function TransactionList() {
                 </ContentBox>
             ) : (
                 <ul>
-                    {Object.values(filteredData)
+                    {Object.values(pagedData)
                         .reverse()
                         .map((transaction, i) => (
                             <Transaction
                                 key={i}
                                 data={transaction}
-                                number={data.length - i}
+                                number={(page - 1) * ITEMS_PER_PAGE + i + 1}
                             />
                         ))}
                 </ul>
             )}
+            <PageSelector
+                page={page}
+                setPage={setPage}
+                length={filteredData.length}
+            />
         </>
     );
 }
