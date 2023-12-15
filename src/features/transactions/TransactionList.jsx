@@ -59,60 +59,62 @@ function TransactionList() {
     if (isLoading) return <Spinner />;
     return (
         <>
-            <div className="flex justify-between items-center">
-                <div>
-                    <select
-                        value={sellBuyFilter}
-                        className="text-white bg-black px-2 py-1"
-                        onChange={(e) => {
-                            setPage(1);
-                            setSellBuyFilter(e.target.value);
-                        }}
-                    >
-                        <option value="">All transactions</option>
-                        <option value="buy">Buy transactions</option>
-                        <option value="sell">Sell transactions</option>
-                    </select>
-                    <select
-                        value={filteredCompanies}
-                        className="text-white bg-black px-2 py-1"
-                        onChange={(e) => {
-                            setPage(1);
-                            filteredCompanies.find(
-                                (company) => company === e.target.value
-                            )
-                                ? filteredCompanies.length === 1
-                                    ? setFilteredCompanies([])
+            {data.length > 0 && (
+                <div className="flex justify-between items-center">
+                    <div>
+                        <select
+                            value={sellBuyFilter}
+                            className="text-white bg-black px-2 py-1"
+                            onChange={(e) => {
+                                setPage(1);
+                                setSellBuyFilter(e.target.value);
+                            }}
+                        >
+                            <option value="">All transactions</option>
+                            <option value="buy">Buy transactions</option>
+                            <option value="sell">Sell transactions</option>
+                        </select>
+                        <select
+                            value={filteredCompanies}
+                            className="text-white bg-black px-2 py-1"
+                            onChange={(e) => {
+                                setPage(1);
+                                filteredCompanies.find(
+                                    (company) => company === e.target.value
+                                )
+                                    ? filteredCompanies.length === 1
+                                        ? setFilteredCompanies([])
+                                        : setFilteredCompanies((s) => [
+                                              ...s.slice(
+                                                  0,
+                                                  s.indexOf(e.target.value)
+                                              ),
+                                              ...s.slice(
+                                                  s.indexOf(e.target.value) + 1
+                                              ),
+                                          ])
                                     : setFilteredCompanies((s) => [
-                                          ...s.slice(
-                                              0,
-                                              s.indexOf(e.target.value)
-                                          ),
-                                          ...s.slice(
-                                              s.indexOf(e.target.value) + 1
-                                          ),
-                                      ])
-                                : setFilteredCompanies((s) => [
-                                      ...s,
-                                      e.target.value,
-                                  ]);
-                        }}
-                        multiple
+                                          ...s,
+                                          e.target.value,
+                                      ]);
+                            }}
+                            multiple
+                        >
+                            {companies.map((company) => (
+                                <option key={company} value={company}>
+                                    {company}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <Button
+                        type="secondary"
+                        onClick={() => setFilteredCompanies([])}
                     >
-                        {companies.map((company) => (
-                            <option key={company} value={company}>
-                                {company}
-                            </option>
-                        ))}
-                    </select>
+                        RESET
+                    </Button>
                 </div>
-                <Button
-                    type="secondary"
-                    onClick={() => setFilteredCompanies([])}
-                >
-                    RESET
-                </Button>
-            </div>
+            )}
             {filteredData.length === 0 ? (
                 <ContentBox>
                     <p>
@@ -133,11 +135,13 @@ function TransactionList() {
                         ))}
                 </ul>
             )}
-            <PageSelector
-                page={page}
-                setPage={setPage}
-                length={filteredData.length}
-            />
+            {data.length > 0 && (
+                <PageSelector
+                    page={page}
+                    setPage={setPage}
+                    length={filteredData.length}
+                />
+            )}
         </>
     );
 }
