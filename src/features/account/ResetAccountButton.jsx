@@ -12,7 +12,6 @@ function ResetAccountButton({ updateBalance, resetAccount, user }) {
     const changeModal = () => {
         if (isOpenModal === false) {
             myTimeout = setTimeout(() => setDisabledButton(false), 3000);
-            console.log("HERE");
         } else {
             clearTimeout(myTimeout);
             setDisabledButton(true);
