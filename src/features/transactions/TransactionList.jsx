@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import ContentBox from "../../ui/ContentBox";
 import Spinner from "../../ui/Spinner";
 import Transaction from "./Transaction";
@@ -6,6 +6,7 @@ import { useTransactions } from "./useTransactions";
 import Button from "../../ui/Button";
 import PageSelector from "../../ui/PageSelector";
 import { ITEMS_PER_PAGE } from "../../utils/constants";
+import Multiselect from "multiselect-react-dropdown";
 
 function TransactionList() {
     const { data, isLoading } = useTransactions();
@@ -16,6 +17,12 @@ function TransactionList() {
     const [filteredCompanies, setFilteredCompanies] = useState([]);
     //Allows for filtering transactions by dates
     const [dateFilter, setDateFilter] = useState();
+
+    const filtersActive =
+        sellBuyFilter !== "" || filteredCompanies.length !== 0;
+
+    const singleDropdown = useRef();
+    const multiDropdown = useRef();
 
     //Pagination
     const [page, setPage] = useState(1);
@@ -61,58 +68,69 @@ function TransactionList() {
         <>
             {data.length > 0 && (
                 <div className="flex justify-between items-center">
-                    <div>
-                        <select
-                            value={sellBuyFilter}
-                            className="text-white bg-black px-2 py-1"
-                            onChange={(e) => {
+                    <div className="flex flex-col gap-2">
+                        <Multiselect
+                            // singleSelect={true}
+                            selectionLimit={1}
+                            displayValue="key"
+                            className="bg-black text-black"
+                            placeholder="Select transactions"
+                            hidePlaceholder={true}
+                            options={[
+                                { key: "All transactions", val: "" },
+                                { key: "Buy transactions", val: "buy" },
+                                { key: "Sell transactions", val: "sell" },
+                            ]}
+                            selectedValues={[
+                                { key: "All transactions", val: "" },
+                            ]}
+                            onSelect={(selectItem) => {
                                 setPage(1);
-                                setSellBuyFilter(e.target.value);
+                                setSellBuyFilter(selectItem[0].val);
                             }}
-                        >
-                            <option value="">All transactions</option>
-                            <option value="buy">Buy transactions</option>
-                            <option value="sell">Sell transactions</option>
-                        </select>
-                        <select
-                            value={filteredCompanies}
-                            className="text-white bg-black px-2 py-1"
-                            onChange={(e) => {
+                            onRemove={() => {
+                                sellBuyFilter !== "" && setSellBuyFilter("");
+                            }}
+                            ref={singleDropdown}
+                        />
+                        <Multiselect
+                            className="bg-black text-black border-tranparent"
+                            isObject={false}
+                            options={companies}
+                            placeholder="Select companies"
+                            hidePlaceholder={true}
+                            onSelect={(selectedList, selectedItem) => {
                                 setPage(1);
-                                filteredCompanies.find(
-                                    (company) => company === e.target.value
-                                )
-                                    ? filteredCompanies.length === 1
-                                        ? setFilteredCompanies([])
-                                        : setFilteredCompanies((s) => [
-                                              ...s.slice(
-                                                  0,
-                                                  s.indexOf(e.target.value)
-                                              ),
-                                              ...s.slice(
-                                                  s.indexOf(e.target.value) + 1
-                                              ),
-                                          ])
+                                setFilteredCompanies((s) =>
+                                    s.concat(selectedItem)
+                                );
+                            }}
+                            onRemove={(remainingList, removedItem) => {
+                                filteredCompanies.length === 1
+                                    ? setFilteredCompanies([])
                                     : setFilteredCompanies((s) => [
-                                          ...s,
-                                          e.target.value,
+                                          ...s.slice(0, s.indexOf(removedItem)),
+                                          ...s.slice(
+                                              s.indexOf(removedItem) + 1
+                                          ),
                                       ]);
                             }}
-                            multiple
-                        >
-                            {companies.map((company) => (
-                                <option key={company} value={company}>
-                                    {company}
-                                </option>
-                            ))}
-                        </select>
+                            ref={multiDropdown}
+                        />
                     </div>
-                    <Button
-                        type="secondary"
-                        onClick={() => setFilteredCompanies([])}
-                    >
-                        RESET
-                    </Button>
+                    {filtersActive && (
+                        <Button
+                            type="secondary"
+                            onClick={() => {
+                                singleDropdown.current.resetSelectedValues();
+                                multiDropdown.current.resetSelectedValues();
+                                setSellBuyFilter("");
+                                setFilteredCompanies([]);
+                            }}
+                        >
+                            RESET
+                        </Button>
+                    )}
                 </div>
             )}
             {filteredData.length === 0 ? (
