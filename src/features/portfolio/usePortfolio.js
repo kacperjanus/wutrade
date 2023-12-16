@@ -35,7 +35,7 @@ export function usePortfolio() {
                 portfolioItem.noShares += values[i].quantity;
 
         portfolioItem.pricePerShare =
-            prices[i]?.["Global Quote - DATA DELAYED BY 15 MINUTES"][
+            prices[i]?.["Global Quote - DATA DELAYED BY 15 MINUTES"]?.[
                 "05. price"
             ];
         portfolioItem.totalValue =
