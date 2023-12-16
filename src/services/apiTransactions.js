@@ -33,3 +33,11 @@ export async function getTransactions({ userId }) {
 
     return data;
 }
+
+export async function getAllTransactions() {
+    const { data, error } = await supabase.from("transactions").select("*");
+
+    if (error) throw new Error(error);
+
+    return data;
+}
