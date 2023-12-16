@@ -19,7 +19,7 @@ function SeachBar() {
         <form onSubmit={handleSubmit}>
             <input
                 className="w-40 focus:w-60 transition-width ease-in-out duration-300 justify-self-end rounded-full px-3 py-2 outline-none"
-                placeholder="Search"
+                placeholder="Search symbol"
                 value={search.toUpperCase()}
                 onChange={(e) => setSearch(e.target.value)}
             ></input>
