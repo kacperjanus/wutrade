@@ -1,12 +1,11 @@
+import { Link } from "react-router-dom";
 import { formatCurrency } from "../../utils/helpers";
 
 function TopMover({ position, mover }) {
     return (
         <>
-            <span className="text-lg font-medium text-white">
-                {" "}
-                {position}. {mover.ticker} -
-            </span>
+            <span className="text-lg font-medium text-white"> {position}.</span>
+            <Link to={`/explore/${mover.ticker}`}> {mover.ticker} -</Link>
             <span
                 className={`${
                     mover.change_amount
@@ -17,7 +16,8 @@ function TopMover({ position, mover }) {
                 } text-lg font-medium`}
             >
                 {" "}
-                {formatCurrency(mover.change_amount)}
+                {formatCurrency(mover.change_amount)} ({mover.change_percentage}
+                )
             </span>
             <span className="text-white"> - {mover.volume / 1000}k shares</span>
         </>
