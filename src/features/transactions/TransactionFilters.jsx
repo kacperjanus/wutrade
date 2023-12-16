@@ -27,11 +27,9 @@ function TransactionFilters({
                         placeholder="Select transactions"
                         hidePlaceholder={true}
                         options={[
-                            { key: "All transactions", val: "" },
                             { key: "Buy transactions", val: "buy" },
                             { key: "Sell transactions", val: "sell" },
                         ]}
-                        selectedValues={[{ key: "All transactions", val: "" }]}
                         onSelect={(selectItem) => {
                             setPage(1);
                             setSellBuyFilter(selectItem[0].val);
