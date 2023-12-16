@@ -17,6 +17,7 @@ export function usePortfolio() {
     //TODO pull the prices for companies that user has more than 0 number of shares
     const { data: prices, isLoading } = useStockPrices({
         stocks: companies,
+        queryKey: "portfolioPrices",
     });
 
     if (isLoading) return { isLoading: true };

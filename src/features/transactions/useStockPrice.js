@@ -15,11 +15,12 @@ export function useStockPrice({ stockId }) {
     return { data, isLoading };
 }
 
-export function useStockPrices({ stocks }) {
+export function useStockPrices({ stocks, queryKey }) {
     const { data, error, isLoading } = useQuery({
         queryFn: () => getMultipleStockPrices({ stocks }),
-        queryKey: ["portfolioPrices"],
+        queryKey: [queryKey],
     });
+    //TODO convert data to objects where company is key and price is value
 
     if (error) throw new Error(error.message);
 
