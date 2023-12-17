@@ -6,13 +6,13 @@ import toast from "react-hot-toast";
 export function useRemoveFromWatchlist() {
     const { stockId } = useParams();
     const queryClient = useQueryClient();
-    const userData = queryClient.getQueryData(["user"]);
+    const { userMetadata } = queryClient.getQueryData(["user"]);
 
     const { mutate: removeFromWatchlist, isLoading } = useMutation({
         mutationFn: (externalStockId) =>
             removeFromWatchlistApi({
                 stockId: externalStockId ? externalStockId : stockId,
-                userId: userData.id,
+                userId: userMetadata.user_id,
             }),
         onSuccess: () => {
             toast.success(

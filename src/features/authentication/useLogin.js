@@ -12,8 +12,11 @@ export function useLogin() {
         mutationFn: ({ email, password }) =>
             signInWithEmail({ email, password }),
         //If successful set "user" query in React Query and navigate to dashboard
-        onSuccess: (data) => {
-            queryClient.setQueryData(["user"], data);
+        onSuccess: ({ userData, userMetadata }) => {
+            queryClient.setQueryData(["user"], {
+                userData,
+                userMetadata,
+            });
             navigate("/dashboard", { replace: true });
         },
         //If unsuccessful display appropriate message on the screen

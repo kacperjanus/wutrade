@@ -12,11 +12,6 @@ export function useSignup() {
             signUpWithEmail({ firstName, lastName, email, password }),
         onSuccess: (data) => {
             queryClient.setQueryData(["user"], data);
-            createUserMetadataRow({
-                userId: data.id,
-                firstName: data.user_metadata.firstName,
-                lastName: data.user_metadata.lastName,
-            });
             navigate("/dashboard");
         },
         onError: () => toast.err("Signing up unsuccessful"),

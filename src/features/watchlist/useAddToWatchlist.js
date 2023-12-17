@@ -6,11 +6,14 @@ import toast from "react-hot-toast";
 export function useAddToWatchList() {
     const { stockId } = useParams();
     const queryClient = useQueryClient();
-    const userData = queryClient.getQueryData(["user"]);
+    const { userMetadata } = queryClient.getQueryData(["user"]);
 
     const { mutate: addToWatchlist, isLoading } = useMutation({
         mutationFn: () =>
-            addToWatchlistApi({ stockId: stockId, userId: userData.id }),
+            addToWatchlistApi({
+                stockId: stockId,
+                userId: userMetadata.user_id,
+            }),
         onSuccess: () =>
             toast.success(`${stockId} successfully added to watchlist`),
         onError: () => toast.error("Something went wrong"),

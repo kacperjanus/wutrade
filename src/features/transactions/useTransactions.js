@@ -7,7 +7,10 @@ export function useTransactions() {
 
     const { data, error, isLoading } = useQuery({
         queryKey: ["transactions"],
-        queryFn: () => getTransactions({ userId: userData.id }),
+        queryFn: () =>
+            getTransactions({
+                userId: userData.userMetadata.user_id,
+            }),
     });
 
     if (error) throw new Error(error.message);

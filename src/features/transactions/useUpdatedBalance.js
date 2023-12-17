@@ -4,15 +4,16 @@ import toast from "react-hot-toast";
 
 export function useUpdatedBalance() {
     const queryClient = useQueryClient();
-    const {
-        user_metadata: { balance: currentBalance },
-    } = queryClient.getQueryData(["user"]);
+    const { userMetadata } = queryClient.getQueryData(["user"]);
+
+    const currentBalance = userMetadata.balance;
 
     const { mutate: updateBalance, isLoading: isUpdatingBalance } = useMutation(
         {
             mutationFn: (transactionCost) =>
                 updateUsersBalance({
                     balance: currentBalance + transactionCost,
+                    userId: userMetadata.user_id,
                 }),
             onSuccess: () => {
                 queryClient.invalidateQueries(["user"]);

@@ -7,7 +7,10 @@ export function useWatchlist() {
 
     const { data, isLoading, error } = useQuery({
         queryKey: ["watchlist"],
-        queryFn: () => getWatchlist({ userId: userData.id }),
+        queryFn: () =>
+            getWatchlist({
+                userId: userData.userMetadata.user_id,
+            }),
     });
 
     if (error) throw new Error(error);

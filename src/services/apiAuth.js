@@ -1,4 +1,3 @@
-import { INITIAL_BALANCE } from "../utils/constants";
 import supabase from "./supabase";
 
 export async function signOutUser() {
@@ -15,11 +14,24 @@ export async function signInWithEmail({ email, password }) {
         }
     );
 
+    //Pull user's metadata from user_metadata table
+    const users_metadata = await getUserMetadata({ userId: data.user.id });
+
     //Check if login was successful
     if (signInError) throw new Error(signInError.message);
 
     //Return logged in user's data
-    return data.user;
+    return { userData: data.user, userMetadata: users_metadata };
+}
+
+export async function getUserMetadata({ userId }) {
+    const {
+        data: [users_metadata],
+        error,
+    } = await supabase.from("user_metadata").select("*").eq("user_id", userId);
+
+    if (error) throw new Error(error.message);
+    return users_metadata;
 }
 
 export async function signUpWithEmail({
@@ -42,8 +54,16 @@ export async function signUpWithEmail({
     //Check if login was successful
     if (signUpError) throw new Error(signUpError.message);
 
+    const {
+        data: [users_metadata],
+    } = await createUserMetadataRow({
+        userId: data.user.id,
+        firstName,
+        lastName,
+    });
+
     //Return registered user's data
-    return data.user;
+    return { userData: data.user, userMetadata: users_metadata };
 }
 
 export async function getCurrentUser() {
@@ -52,16 +72,29 @@ export async function getCurrentUser() {
     if (!session.session) return null;
 
     //If the session is active get current user's data
-    const { data, error } = await supabase.auth.getUser();
+    const { data, error: userError } = await supabase.auth.getUser();
+    if (userError) throw new Error(userError.message);
+    // console.log(data);
+
+    const {
+        data: [users_metadata],
+        error,
+    } = await supabase
+        .from("user_metadata")
+        .select("*")
+        .eq("user_id", data.user.id);
+
     if (error) throw new Error(error.message);
 
-    return data?.user;
+    return { userData: data?.user, userMetadata: users_metadata };
 }
 
-export async function updateUsersBalance({ balance }) {
-    const newBalance = { data: { balance } };
-
-    const { data, error } = supabase.auth.updateUser(newBalance);
+export async function updateUsersBalance({ balance, userId }) {
+    const { data, error } = await supabase
+        .from("user_metadata")
+        .update({ balance: balance })
+        .eq("user_id", userId)
+        .select();
 
     if (error) throw new Error(error.message);
     return data;
@@ -115,5 +148,6 @@ export async function createUserMetadataRow({ userId, firstName, lastName }) {
         .select();
 
     if (error) throw new Error(error.message);
-    console.log("HERE");
+
+    return { data };
 }

@@ -22,7 +22,7 @@ function BuySellForm({ company, isBuying, closeFunction }) {
     const { updateBalance, isLoading: isUpdatingBalance } = useUpdatedBalance();
 
     const queryClient = useQueryClient();
-    const userData = queryClient.getQueryData(["user"]);
+    const { userMetadata } = queryClient.getQueryData(["user"]);
 
     const { data: globalQuote, isLoading } = useStockPrice({
         stockId: company,
@@ -42,7 +42,7 @@ function BuySellForm({ company, isBuying, closeFunction }) {
         //If user is buying, check if his balance allows for the transaction
         //If the user is selling, check if his portfolio has enough shares
         if (buy) {
-            if (totalPrice > userData.user_metadata.balance) {
+            if (totalPrice > userMetadata.balance) {
                 toast.error("Balance unsufficient");
                 return;
             }
@@ -61,7 +61,7 @@ function BuySellForm({ company, isBuying, closeFunction }) {
 
         //Create new transaction in a database
         addTransaction({
-            userId: userData.id,
+            userId: userMetadata.user_id,
             stockId: company,
             quantity: buy ? noShares : -noShares,
             pricePerShare: price,
