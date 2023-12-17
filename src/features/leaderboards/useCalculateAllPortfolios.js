@@ -20,15 +20,18 @@ export function useCalculateAllPortfolios() {
         Object.groupBy(transactions, ({ stockId }) => stockId)
     );
 
-    //2. Pull all necessary prices
+    //2.1 Pull all necessary prices
     const { data: prices, isLoading } = useStockPrices({
         stocks: companies,
         queryKey: "leaderboardsPrices",
     });
+
+    //2.2 Pull all users data
+
     //3. Create an array to store users' portoflios
     const portfolioValues = [];
 
-    if (!prices) return { isLoading: true };
+    if (isLoading) return { isLoading: true };
 
     //4. Calculate portfolio for all users
     for (let usersTransactions of groupedByUserTransactions) {
