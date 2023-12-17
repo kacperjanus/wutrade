@@ -8,4 +8,14 @@ export async function getAllPortfolioValues() {
     return portfolio_values;
 }
 
+export async function getAllUserData() {
+    const { data: users_metadata, error } = await supabase
+        .from("user_metadata")
+        .select("*");
+
+    if (error) throw new Error(error.message);
+
+    return users_metadata;
+}
+
 export async function calculateAllPortfolios() {}

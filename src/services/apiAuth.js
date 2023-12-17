@@ -36,7 +36,6 @@ export async function signUpWithEmail({
             data: {
                 firstName,
                 lastName,
-                balance: INITIAL_BALANCE,
             },
         },
     });
@@ -101,4 +100,20 @@ export async function updateCurrentUser({
 
     if (error) throw new Error(error.message);
     return updatedUser;
+}
+
+export async function createUserMetadataRow({ userId, firstName, lastName }) {
+    const { data, error } = await supabase
+        .from("user_metadata")
+        .insert([
+            {
+                user_id: userId,
+                first_name: firstName,
+                last_name: lastName,
+            },
+        ])
+        .select();
+
+    if (error) throw new Error(error.message);
+    console.log("HERE");
 }

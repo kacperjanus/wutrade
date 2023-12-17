@@ -1,5 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useStockPrices } from "../transactions/useStockPrice";
+import { useAllUserData } from "./useAllUserData";
 
 export function useCalculateAllPortfolios() {
     const queryClient = useQueryClient();
@@ -27,11 +28,12 @@ export function useCalculateAllPortfolios() {
     });
 
     //2.2 Pull all users data
+    const { data: userData, isLoading: isLoadingUserData } = useAllUserData();
 
     //3. Create an array to store users' portoflios
     const portfolioValues = [];
 
-    if (isLoading) return { isLoading: true };
+    if (isLoading || isLoadingUserData) return { isLoading: true };
 
     //4. Calculate portfolio for all users
     for (let usersTransactions of groupedByUserTransactions) {
@@ -65,12 +67,20 @@ export function useCalculateAllPortfolios() {
 
             portfolio.push(portfolioItem);
         });
+        const userFromMetadataTable = userData.find(
+            (user) => user.user_id === users[portfolioValues.length]
+        );
         portfolioValues.push({
-            userId: users[portfolioValues.length],
+            userId: userFromMetadataTable
+                ? `${userFromMetadataTable.first_name} ${userFromMetadataTable.last_name}`
+                : users[portfolioValues.length],
             portfolioValue: portfolio.reduce(
                 (acc, item) => acc + item.totalValue,
                 0
             ),
+            balance: userFromMetadataTable
+                ? userFromMetadataTable.balance
+                : NaN,
         });
     }
 
