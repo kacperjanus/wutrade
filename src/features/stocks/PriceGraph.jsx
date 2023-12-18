@@ -20,6 +20,8 @@ function PriceGraph({ prices, interval, isLoadingPriceGraph, timeSeries }) {
         monthly: `Monthly Time Series`,
     };
 
+    if (prices["Error Message"]) return <div>ERROR</div>;
+
     const times =
         timeSeries === "intra"
             ? Object.keys(prices[objectKey[timeSeries]])
