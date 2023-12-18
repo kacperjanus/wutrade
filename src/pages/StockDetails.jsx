@@ -88,14 +88,12 @@ function StockDetails() {
                 </ContentBox>
                 <ContentBox>
                     <p className="font-bold">Price graph</p>
-                    <div>
-                        <IntervalFilter
-                            priceInterval={priceInterval}
-                            setPriceInterval={setPriceInterval}
-                            timeSeries={timeSeries}
-                            setTimeSeries={setTimeSeries}
-                        />
-                    </div>
+                    <IntervalFilter
+                        priceInterval={priceInterval}
+                        setPriceInterval={setPriceInterval}
+                        timeSeries={timeSeries}
+                        setTimeSeries={setTimeSeries}
+                    />
                     <PriceGraph
                         prices={prices}
                         interval={priceInterval}
