@@ -1,20 +1,18 @@
 import { useQueryClient } from "@tanstack/react-query";
-import BuySellButtons from "../features/stocks/BuySellButtons";
-import PriceGraph from "../features/stocks/PriceGraph";
 import { useStockFundamentalData } from "../features/stocks/useStockDetails";
 import { useStockPriceData } from "../features/stocks/useStockPriceData";
-import AddToWatchlist from "../features/watchlist/AddToWatchlist";
 import { useWatchlist } from "../features/watchlist/useWatchlist";
-import ContentBox from "../ui/ContentBox";
-import SectionHeader from "../ui/SectionHeader";
-import { formatCurrency } from "../utils/helpers";
 import { useEffect, useState } from "react";
 import Spinner from "../ui/Spinner";
 import { usePortfolio } from "../features/portfolio/usePortfolio";
 import { useParams } from "react-router-dom";
-import IntervalFilter from "../features/stocks/IntervalFilter";
 import { useTransactions } from "../features/transactions/useTransactions";
 import NotFound from "./NotFound";
+import CompanyOverview from "../features/stocks/CompanyOverview";
+import PriceGraphContainer from "../features/stocks/PriceGraphContainer";
+import CompanyFinancials from "../features/stocks/CompanyFinancials";
+import CompanyDividend from "../features/stocks/CompanyDividend";
+import CompanyHeader from "../features/stocks/CompanyHeader";
 
 function StockDetails() {
     const queryClient = useQueryClient();
@@ -40,7 +38,6 @@ function StockDetails() {
     const { portfolio } = usePortfolio();
 
     //TODO create select button for different intervals
-    //TODO changing time interval from the default one should crash the page when changing the stock
 
     if (isLoading || isLoadingWatchlist || isLoadingTransactions)
         return <Spinner />;
@@ -49,95 +46,24 @@ function StockDetails() {
         <NotFound />
     ) : (
         <>
-            <div>
-                <div className="flex flex-row ">
-                    <SectionHeader>
-                        <span className="font-medium">{data.Name}</span> (
-                        {data.Symbol})
-                    </SectionHeader>
-                    <AddToWatchlist watchlist={watchlist} />
-                    <BuySellButtons company={data.Symbol} />
-                </div>
-                <div>
-                    {portfolio?.find((item) => item.company === data.Symbol) ? (
-                        <span className="text-white">
-                            You own{" "}
-                            {
-                                portfolio?.find(
-                                    (item) => item.company === data.Symbol
-                                ).noShares
-                            }{" "}
-                            shares
-                        </span>
-                    ) : (
-                        <span className="text-white">
-                            You don't own any shares
-                        </span>
-                    )}
-                </div>
-            </div>
+            <CompanyHeader
+                data={data}
+                watchlist={watchlist}
+                portfolio={portfolio}
+            />
             <div className="flex flex-col gap-5">
-                <ContentBox>
-                    <span className="font-bold">Overview</span>
-                    <div className="flex flex-col">
-                        <span className="mb-5">{data.Description}</span>
-                        <span>Asset type: {data.AssetType}</span>
-                        <span>Exchange: {data.Exchange}</span>
-                        <span>Sector: {data.Sector}</span>
-                    </div>
-                </ContentBox>
-                <ContentBox>
-                    <p className="font-bold">Price graph</p>
-                    <IntervalFilter
-                        priceInterval={priceInterval}
-                        setPriceInterval={setPriceInterval}
-                        timeSeries={timeSeries}
-                        setTimeSeries={setTimeSeries}
-                    />
-                    <PriceGraph
-                        prices={prices}
-                        interval={priceInterval}
-                        timeSeries={timeSeries}
-                        isLoadingPriceGraph={isLoadingPriceGraph}
-                    />
-                </ContentBox>
+                <CompanyOverview data={data} />
+                <PriceGraphContainer
+                    priceInterval={priceInterval}
+                    setPriceInterval={setPriceInterval}
+                    timeSeries={timeSeries}
+                    setTimeSeries={setTimeSeries}
+                    prices={prices}
+                    isLoadingPriceGraph={isLoadingPriceGraph}
+                />
                 <div className="flex flex-row gap-5">
-                    <ContentBox>
-                        <span className="font-bold">Financials</span>
-                        <div className="flex flex-col text-slate-300">
-                            <span>
-                                Market capitalization:{" "}
-                                {formatCurrency(data["MarketCapitalization"])}
-                            </span>
-                            <span>
-                                52-week-high:{" "}
-                                {formatCurrency(data["52WeekHigh"])}
-                            </span>
-                            <span>
-                                52-week-low: {formatCurrency(data["52WeekLow"])}
-                            </span>
-                            <span>
-                                Profit margin:{" "}
-                                {(data["ProfitMargin"] * 100).toFixed(2)}%
-                            </span>
-                        </div>
-                    </ContentBox>
-                    <ContentBox>
-                        <span className="font-bold">Dividend</span>
-                        <div className="flex flex-col text-slate-300">
-                            <span>
-                                Next dividend date: {data["DividendDate"]}
-                            </span>
-                            <span>
-                                Dividend per share:{" "}
-                                {formatCurrency(data["DividendPerShare"])}
-                            </span>
-                            <span>
-                                Dividend yield:{" "}
-                                {(data["DividendYield"] * 100).toFixed(2)}%
-                            </span>
-                        </div>
-                    </ContentBox>
+                    <CompanyFinancials data={data} />
+                    <CompanyDividend data={data} />
                 </div>
             </div>
         </>
