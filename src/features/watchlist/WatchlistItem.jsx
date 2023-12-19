@@ -40,7 +40,7 @@ function WatchlistItem({ item }) {
                               )} per share`}{" "}
                     </p>
                 </div>
-                {show ? (
+                {show && (
                     <button
                         disabled={isLoading}
                         className="text-red-500 px-3"
@@ -48,8 +48,6 @@ function WatchlistItem({ item }) {
                     >
                         <HiTrash />
                     </button>
-                ) : (
-                    ""
                 )}
                 <BuySellButtons company={item.stockId} />
                 <GoToStockButton company={item.stockId} />
