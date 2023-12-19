@@ -30,13 +30,11 @@ function LoginForm() {
                 <InputField
                     fieldName="email"
                     label="Email"
-                    defaultValue="kacperjanus8@gmail.com"
                     registerFunction={register}
                 />
                 <InputField
                     fieldName="password"
                     label="Password"
-                    defaultValue="kacper"
                     type="password"
                     registerFunction={register}
                 />
