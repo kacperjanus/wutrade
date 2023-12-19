@@ -1,12 +1,15 @@
+import ContentBox from "../../ui/ContentBox";
 import PortfolioItem from "./PortfolioItem";
 
 function PortfolioList({ portfolio }) {
     return (
-        <ul>
-            {portfolio?.map((company) => (
-                <PortfolioItem key={company.company} company={company} />
-            ))}
-        </ul>
+        <ContentBox>
+            <ul>
+                {portfolio?.map((company) => (
+                    <PortfolioItem key={company.company} company={company} />
+                ))}
+            </ul>
+        </ContentBox>
     );
 }
 

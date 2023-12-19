@@ -37,7 +37,7 @@ function PortfolioChart({ portfolio }) {
             Nothing to see here. Visit EXPLORE tab to make a transaction.
         </ContentBox>
     ) : (
-        <div>
+        <ContentBox>
             <p>
                 Portfolio value:{" "}
                 {formatCurrency(
@@ -68,7 +68,7 @@ function PortfolioChart({ portfolio }) {
                     <Tooltip content={<CustomTooltip />} />
                 </PieChart>
             </ResponsiveContainer>
-        </div>
+        </ContentBox>
     );
 }
 
