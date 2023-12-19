@@ -13,8 +13,9 @@ import { useQueryClient } from "@tanstack/react-query";
 import { usePortfolioValues } from "./usePortfolioValues";
 import Spinner from "../../ui/Spinner";
 import { compareDesc, parseISO } from "date-fns";
+import { formatCurrency } from "../../utils/helpers";
 
-function PortfolioValueChart() {
+function PortfolioValueChart({ portfolio }) {
     const queryClient = useQueryClient();
     const user = queryClient.getQueryData(["user"]);
 
@@ -30,7 +31,12 @@ function PortfolioValueChart() {
 
     return (
         <ContentBox>
-            <p className="mb-5 font-bold">Portfolio value chart</p>
+            <p className="font-bold">
+                Portfolio value:{" "}
+                {formatCurrency(
+                    portfolio?.reduce((acc, item) => item.totalValue + acc, 0)
+                )}
+            </p>
             {graphData.length > 0 ? (
                 <ResponsiveContainer width="100%" height={400}>
                     <LineChart

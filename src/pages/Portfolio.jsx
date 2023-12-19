@@ -25,7 +25,7 @@ function Portfolio() {
                 </ContentBox>
             ) : (
                 <>
-                    <PortfolioValueChart />
+                    <PortfolioValueChart portfolio={portfolio} />
                     <PortfolioChart portfolio={portfolio} />
                     <PortfolioList portfolio={portfolio} />
                 </>

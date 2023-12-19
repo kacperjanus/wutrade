@@ -38,12 +38,6 @@ function PortfolioChart({ portfolio }) {
         </ContentBox>
     ) : (
         <ContentBox>
-            <p>
-                Portfolio value:{" "}
-                {formatCurrency(
-                    portfolio?.reduce((acc, item) => item.totalValue + acc, 0)
-                )}
-            </p>
             <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
                     <Pie
