@@ -1,5 +1,6 @@
 import PortfolioChart from "../features/portfolio/PortfolioChart";
 import PortfolioList from "../features/portfolio/PortfolioList";
+import PortfolioValueChart from "../features/portfolio/PortfolioValueChart";
 import { usePortfolio } from "../features/portfolio/usePortfolio";
 import { useTransactions } from "../features/transactions/useTransactions";
 import ContentBox from "../ui/ContentBox";
@@ -24,6 +25,7 @@ function Portfolio() {
                 </ContentBox>
             ) : (
                 <>
+                    <PortfolioValueChart />
                     <PortfolioChart portfolio={portfolio} />
                     <PortfolioList portfolio={portfolio} />
                 </>
