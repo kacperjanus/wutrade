@@ -10,7 +10,13 @@ import {
 } from "recharts";
 import Spinner from "../../ui/Spinner";
 
-function PriceGraph({ prices, interval, isLoadingPriceGraph, timeSeries }) {
+function PriceGraph({
+    prices,
+    interval,
+    isLoadingPriceGraph,
+    timeSeries,
+    mainInterval,
+}) {
     if (isLoadingPriceGraph) return <Spinner />;
 
     const objectKey = {
@@ -20,22 +26,37 @@ function PriceGraph({ prices, interval, isLoadingPriceGraph, timeSeries }) {
         monthly: `Monthly Time Series`,
     };
 
-    if (prices["Error Message"]) return <div>ERROR</div>;
+    const objectInterval = {
+        "1d": 35,
+        "1w": 93,
+        "1m": 79,
+        "6m": 1231,
+        "1y": 1206,
+        "5y": 226,
+        all: 0,
+    };
+
+    if (prices["Error Message"] || !prices) return <div>ERROR</div>;
 
     const times =
         timeSeries === "intra"
             ? Object.keys(prices[objectKey[timeSeries]])
                   .map((item) => item.substring(11, 16))
                   .reverse()
-            : Object.keys(prices[objectKey[timeSeries]]).reverse();
+                  .slice(objectInterval[mainInterval])
+            : Object.keys(prices[objectKey[timeSeries]])
+                  .reverse()
+                  .slice(objectInterval[mainInterval]);
 
     const price = Object.values(prices[objectKey[timeSeries]])
         .map((item) => item["1. open"])
-        .reverse();
+        .reverse()
+        .slice(objectInterval[mainInterval]);
 
     const volume = Object.values(prices[objectKey[timeSeries]])
         .map((item) => item["5. volume"] / 1000)
-        .reverse();
+        .reverse()
+        .slice(objectInterval[mainInterval]);
 
     const data = times.map((item, i) => {
         return {

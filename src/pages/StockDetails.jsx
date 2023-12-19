@@ -18,8 +18,39 @@ function StockDetails() {
     const queryClient = useQueryClient();
     const { stockId } = useParams();
 
-    const [priceInterval, setPriceInterval] = useState("1min");
+    const [priceInterval, setPriceInterval] = useState("15min");
     const [timeSeries, setTimeSeries] = useState("intra");
+    const [mainInterval, setMainInterval] = useState("1d");
+
+    useEffect(() => {
+        switch (mainInterval) {
+            case "1d":
+                setPriceInterval("15min");
+                setTimeSeries("intra");
+                break;
+            case "1w":
+                setTimeSeries("daily");
+                break;
+            case "1m":
+                setTimeSeries("daily");
+                break;
+            case "6m":
+                setTimeSeries("weekly");
+                break;
+            case "1y":
+                setTimeSeries("weekly");
+                break;
+            case "5y":
+                setTimeSeries("monthly");
+                break;
+            case "all":
+                setTimeSeries("monthly");
+                break;
+            default:
+                setPriceInterval("5min");
+                setTimeSeries("intra");
+        }
+    }, [mainInterval, setTimeSeries, setPriceInterval]);
 
     useEffect(() => {
         queryClient.removeQueries({ queryKey: ["stockDetails"] });
@@ -55,11 +86,11 @@ function StockDetails() {
                 <CompanyOverview data={data} />
                 <PriceGraphContainer
                     priceInterval={priceInterval}
-                    setPriceInterval={setPriceInterval}
                     timeSeries={timeSeries}
-                    setTimeSeries={setTimeSeries}
                     prices={prices}
                     isLoadingPriceGraph={isLoadingPriceGraph}
+                    mainInterval={mainInterval}
+                    setMainInterval={setMainInterval}
                 />
                 <div className="flex flex-row gap-5">
                     <CompanyFinancials data={data} />

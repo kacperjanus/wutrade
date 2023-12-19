@@ -4,26 +4,25 @@ import PriceGraph from "./PriceGraph";
 
 function PriceGraphContainer({
     priceInterval,
-    setPriceInterval,
     timeSeries,
-    setTimeSeries,
     prices,
     isLoadingPriceGraph,
+    mainInterval,
+    setMainInterval,
 }) {
     return (
         <ContentBox>
             <p className="font-bold">Price graph</p>
             <IntervalFilter
-                priceInterval={priceInterval}
-                setPriceInterval={setPriceInterval}
-                timeSeries={timeSeries}
-                setTimeSeries={setTimeSeries}
+                mainInterval={mainInterval}
+                setMainInterval={setMainInterval}
             />
             <PriceGraph
                 prices={prices}
                 interval={priceInterval}
                 timeSeries={timeSeries}
                 isLoadingPriceGraph={isLoadingPriceGraph}
+                mainInterval={mainInterval}
             />
         </ContentBox>
     );
