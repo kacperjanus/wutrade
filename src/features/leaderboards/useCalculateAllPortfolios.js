@@ -71,9 +71,10 @@ export function useCalculateAllPortfolios() {
             (user) => user.user_id === users[portfolioValues.length]
         );
         portfolioValues.push({
-            userId: userFromMetadataTable
-                ? `${userFromMetadataTable.first_name} ${userFromMetadataTable.last_name}`
-                : users[portfolioValues.length],
+            userId: users[portfolioValues.length],
+            fullName:
+                userFromMetadataTable &&
+                `${userFromMetadataTable.first_name} ${userFromMetadataTable.last_name}`,
             portfolioValue: portfolio.reduce(
                 (acc, item) => acc + item.totalValue,
                 0

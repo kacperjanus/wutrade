@@ -11,7 +11,7 @@ function Leaderboard() {
     return (
         <>
             <div className="rounded-md bg-amber-300 px-3 py-2 my-2 text-black">
-                1. {first.userId} -{" "}
+                1. {first.fullName} -{" "}
                 {formatCurrency(first.portfolioValue + first.balance)} with{" "}
                 {formatCurrency(first.balance)} (
                 {(
@@ -21,7 +21,7 @@ function Leaderboard() {
                 %) in cash
             </div>
             <div className="rounded-md bg-slate-300 px-3 py-1 my-2 text-black">
-                2. {second.userId} -{" "}
+                2. {second.fullName} -{" "}
                 {formatCurrency(second.portfolioValue + second.balance)} with{" "}
                 {formatCurrency(second.balance)} (
                 {(
@@ -32,7 +32,7 @@ function Leaderboard() {
                 %) in cash
             </div>
             <div className="rounded-md bg-orange-800 px-3 py-1 my-2">
-                3. {third.userId} -{" "}
+                3. {third.fullName} -{" "}
                 {formatCurrency(third.portfolioValue + third.balance)} with{" "}
                 {formatCurrency(third.balance)} (
                 {(
@@ -46,7 +46,7 @@ function Leaderboard() {
                     key={user.userId}
                     className="rounded-md bg-slate-900 px-3 py-1 my-2 text-white"
                 >
-                    {i + 4}. {user.userId} -{" "}
+                    {i + 4}. {user.fullName} -{" "}
                     {formatCurrency(user.portfolioValue + user.balance)} with{" "}
                     {formatCurrency(user.balance)} (
                     {(
