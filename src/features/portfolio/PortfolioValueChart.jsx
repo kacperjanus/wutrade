@@ -31,32 +31,36 @@ function PortfolioValueChart() {
     return (
         <ContentBox>
             <p className="mb-5 font-bold">Portfolio value chart</p>
-            <ResponsiveContainer width="100%" height={400}>
-                <LineChart
-                    data={graphData}
-                    margin={{ bottom: 70, left: 30, right: 30 }}
-                >
-                    <CartesianGrid strokeDasharray="5 5" vertical={false} />
-                    <XAxis dataKey="created_at" angle={290} tickSize={45} />
-                    <YAxis
-                        dataKey="portfolio_value"
-                        orientation="left"
-                        unit="$"
-                        domain={["auto", "auto"]}
-                    />
-                    <Tooltip contentStyle={{ backgroundColor: "black" }} />
-                    <Legend verticalAlign="top" />
-                    <Line
-                        type="monotone"
-                        dataKey="portfolio_value"
-                        stroke="#0ea5e9"
-                        name="Portfolio Value"
-                        unit="$"
-                        dot={false}
-                        strokeWidth={2}
-                    />
-                </LineChart>
-            </ResponsiveContainer>
+            {graphData.length > 0 ? (
+                <ResponsiveContainer width="100%" height={400}>
+                    <LineChart
+                        data={graphData}
+                        margin={{ bottom: 70, left: 30, right: 30 }}
+                    >
+                        <CartesianGrid strokeDasharray="5 5" vertical={false} />
+                        <XAxis dataKey="created_at" angle={290} tickSize={45} />
+                        <YAxis
+                            dataKey="portfolio_value"
+                            orientation="left"
+                            unit="$"
+                            domain={["auto", "auto"]}
+                        />
+                        <Tooltip contentStyle={{ backgroundColor: "black" }} />
+                        <Legend verticalAlign="top" />
+                        <Line
+                            type="monotone"
+                            dataKey="portfolio_value"
+                            stroke="#0ea5e9"
+                            name="Portfolio Value"
+                            unit="$"
+                            dot={false}
+                            strokeWidth={2}
+                        />
+                    </LineChart>
+                </ResponsiveContainer>
+            ) : (
+                <p className="text-center">Your own graph will appear soon!</p>
+            )}
         </ContentBox>
     );
 }
