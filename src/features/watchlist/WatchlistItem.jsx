@@ -41,7 +41,11 @@ function WatchlistItem({ item }) {
                     </p>
                 </div>
                 {show ? (
-                    <button className="text-red-500 px-3" onClick={handleClick}>
+                    <button
+                        disabled={isLoading}
+                        className="text-red-500 px-3"
+                        onClick={handleClick}
+                    >
                         <HiTrash />
                     </button>
                 ) : (
