@@ -10,24 +10,19 @@ import {
 } from "recharts";
 import ContentBox from "../../ui/ContentBox";
 import { useQueryClient } from "@tanstack/react-query";
-import { usePortfolioValues } from "./usePortfolioValues";
-import Spinner from "../../ui/Spinner";
 import { compareDesc, parseISO } from "date-fns";
 import { formatCurrency } from "../../utils/helpers";
 
 function PortfolioValueChart({ portfolio }) {
     const queryClient = useQueryClient();
     const user = queryClient.getQueryData(["user"]);
+    const portfolio_values = queryClient.getQueryData(["portfolioValues"]);
 
-    const { portfolio_values, isLoading } = usePortfolioValues({
-        userId: user.userMetadata.user_id,
-    });
-
-    if (isLoading) return <Spinner />;
-
-    const graphData = portfolio_values.sort((a, b) =>
-        compareDesc(parseISO(b.created_at), parseISO(a.created_at))
-    );
+    const graphData = portfolio_values
+        .filter((value) => value.user_id === user.userMetadata.user_id)
+        .sort((a, b) =>
+            compareDesc(parseISO(b.created_at), parseISO(a.created_at))
+        );
 
     return (
         <ContentBox>
