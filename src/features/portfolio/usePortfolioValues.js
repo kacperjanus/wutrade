@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { getPortfolioValues } from "../../services/apiPortfolio";
 
-export function usePortfolioValues({ userId }) {
+export function usePortfolioValues() {
     const { data: portfolio_values, isLoading } = useQuery({
-        queryFn: () => getPortfolioValues({ userId }),
+        queryFn: () => getPortfolioValues(),
         queryKey: ["portfolioValues"],
     });
 
