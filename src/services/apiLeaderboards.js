@@ -18,4 +18,13 @@ export async function getAllUserData() {
     return users_metadata;
 }
 
+export async function postPortfolioValues(valuesToPost) {
+    if (valuesToPost.length === 0) return;
+    const { data, error } = await supabase
+        .from("portfolio_values")
+        .insert(valuesToPost)
+        .select();
+    if (error) throw new Error(error.message);
+}
+
 export async function calculateAllPortfolios() {}
