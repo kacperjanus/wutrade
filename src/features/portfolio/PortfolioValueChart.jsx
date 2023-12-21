@@ -54,7 +54,6 @@ function PortfolioValueChart({ portfolio }) {
                             stroke="#0ea5e9"
                             name="Portfolio Value"
                             unit="$"
-                            dot={false}
                             strokeWidth={2}
                         />
                     </LineChart>
