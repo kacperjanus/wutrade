@@ -9,7 +9,12 @@ export function usePostPortfolioValues() {
         isLoading,
     } = useMutation({
         mutationFn: (valuesToPost) => postPortfolioValues(valuesToPost),
-        onSuccess: () => {},
+        onSuccess: () => {
+            queryClient.invalidateQueries(["allTransactions"]);
+            queryClient.removeQueries(["leaderboardsPrices"]);
+            queryClient.removeQueries(["allUserData"]);
+            queryClient.invalidateQueries(["portfolioValues"]);
+        },
         onError: () => {},
     });
 

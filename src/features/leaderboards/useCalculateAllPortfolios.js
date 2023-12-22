@@ -5,6 +5,9 @@ import { useAllUserData } from "./useAllUserData";
 export function useCalculateAllPortfolios() {
     const queryClient = useQueryClient();
     const transactions = queryClient.getQueryData(["allTransactions"]);
+    const portfolioValuesFromDatabase = queryClient.getQueryData([
+        "portfolioValues",
+    ]);
 
     //1.1 Group transactions by user
     const groupedByUserTransactions = Object.values(
@@ -31,8 +34,7 @@ export function useCalculateAllPortfolios() {
     const { data: userData, isLoading: isLoadingUserData } = useAllUserData();
 
     //3. Create an array to store users' portoflios
-    const portfolioValues = [];
-
+    const calculatedPortfolioValues = [];
     if (isLoading || isLoadingUserData) return { isLoading: true };
 
     //4. Calculate portfolio for all users
@@ -68,10 +70,10 @@ export function useCalculateAllPortfolios() {
             portfolio.push(portfolioItem);
         });
         const userFromMetadataTable = userData.find(
-            (user) => user.user_id === users[portfolioValues.length]
+            (user) => user.user_id === users[calculatedPortfolioValues.length]
         );
-        portfolioValues.push({
-            userId: users[portfolioValues.length],
+        calculatedPortfolioValues.push({
+            userId: users[calculatedPortfolioValues.length],
             fullName:
                 userFromMetadataTable &&
                 `${userFromMetadataTable.first_name} ${userFromMetadataTable.last_name}`,
@@ -85,12 +87,32 @@ export function useCalculateAllPortfolios() {
         });
     }
 
-    const sortedPortfolioValues = portfolioValues.sort(
-        (a, b) => b.portfolioValue - a.portfolioValue
+    const sortedPortfolioValues = calculatedPortfolioValues.sort(
+        (a, b) => b.portfolioValue + b.balance - a.portfolioValue - a.balance
     );
 
+    const dataToPost = [];
+    const today = new Date();
+    const todayString = `${today.getFullYear()}-${
+        today.getMonth() + 1
+    }-${today.getDate()}`;
+
     //5. Send portfolio values to portfolio values in the database
-    //TODO post portfolio values to the database
+    for (let value of calculatedPortfolioValues) {
+        const valueToPost = portfolioValuesFromDatabase?.find(
+            (globalValue) =>
+                globalValue.user_id === value.userId &&
+                globalValue.created_at === todayString
+        );
+        if (!valueToPost) {
+            dataToPost.push({
+                created_at: todayString,
+                portfolio_value: value.balance + value.portfolioValue,
+                user_id: value.userId,
+            });
+        }
+    }
+
     queryClient.setQueryData(["leaderboards"], sortedPortfolioValues);
-    return { data: sortedPortfolioValues, isLoading: false };
+    return { data: sortedPortfolioValues, dataToPost, isLoading: false };
 }

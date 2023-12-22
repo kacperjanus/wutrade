@@ -1,10 +1,20 @@
 import { formatCurrency } from "../../utils/helpers";
 import Spinner from "../../ui/Spinner";
 import { useCalculateAllPortfolios } from "./useCalculateAllPortfolios";
+import { usePostPortfolioValues } from "./usePostPortfolioValues";
+import { useEffect } from "react";
 
 function Leaderboard() {
-    const { data, isLoading } = useCalculateAllPortfolios();
-    if (isLoading) return <Spinner />;
+    const { data, dataToPost, isLoading } = useCalculateAllPortfolios();
+    const { postValues, isLoading: isPostingValues } = usePostPortfolioValues();
+
+    useEffect(() => {
+        if (dataToPost && dataToPost.length !== 0 && !isPostingValues) {
+            postValues(dataToPost);
+        }
+    }, [postValues, dataToPost, isPostingValues]);
+
+    if (isLoading || isPostingValues) return <Spinner />;
 
     const [first, second, third, ...rest] = data;
 
