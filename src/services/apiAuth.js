@@ -114,6 +114,13 @@ export async function resetAccount({ userId }) {
         .eq("userId", userId);
 
     if (errorTransactions) throw new Error(error.message);
+
+    const { error: errorPortfolioValue } = await supabase
+        .from("portfolio_values")
+        .delete()
+        .eq("user_id", userId);
+
+    if (errorPortfolioValue) throw new Error(error.message);
 }
 
 export async function updateCurrentUser({

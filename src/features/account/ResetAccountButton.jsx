@@ -21,8 +21,8 @@ function ResetAccountButton({ updateBalance, resetAccount, user }) {
 
     function handleResetAccount() {
         //Reset balance
-        updateBalance(200000 - user.user_metadata.balance);
-        resetAccount(user.id);
+        updateBalance(200000 - user.userMetadata.balance);
+        resetAccount(user.userMetadata.user_id);
     }
 
     return (
