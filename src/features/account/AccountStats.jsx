@@ -60,8 +60,6 @@ function AccountStats() {
         ),
     };
 
-    console.log(mostOftenTradedStock);
-
     return (
         <ContentBox>
             <p className="font-bold">Account statistics</p>
