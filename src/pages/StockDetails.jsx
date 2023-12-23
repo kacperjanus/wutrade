@@ -68,8 +68,6 @@ function StockDetails() {
     const { isLoading: isLoadingTransactions } = useTransactions();
     const { portfolio } = usePortfolio();
 
-    //TODO create select button for different intervals
-
     if (isLoading || isLoadingWatchlist || isLoadingTransactions)
         return <Spinner />;
 

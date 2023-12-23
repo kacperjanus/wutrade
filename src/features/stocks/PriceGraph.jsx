@@ -66,8 +66,6 @@ function PriceGraph({
         };
     });
 
-    //TODO make reference line when the day changes within graph domain for intraday trading
-
     return (
         <div className="mt-3">
             <ResponsiveContainer width="100%" height={400}>

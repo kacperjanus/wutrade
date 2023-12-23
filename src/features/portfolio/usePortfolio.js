@@ -13,7 +13,6 @@ export function usePortfolio() {
         if (!companies.includes(values[i]?.stockId))
             companies.push(values[i].stockId);
 
-    //FIX hook is called with companies array being empty
     //TODO pull the prices for companies that user has more than 0 number of shares
     const { data: prices, isLoading } = useStockPrices({
         stocks: companies,

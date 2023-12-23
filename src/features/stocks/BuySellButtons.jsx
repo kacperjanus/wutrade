@@ -26,7 +26,6 @@ function BuySellButtons({ company }) {
         changeModal();
     };
 
-    //TODO make button disabled based on the fact if the market is open
     return (
         <div className="text-white ml-auto mr-2 flex flex-row gap-2 self-center">
             <button
