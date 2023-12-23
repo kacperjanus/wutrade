@@ -14,11 +14,11 @@ export async function signInWithEmail({ email, password }) {
         }
     );
 
-    //Pull user's metadata from user_metadata table
-    const users_metadata = await getUserMetadata({ userId: data.user.id });
-
     //Check if login was successful
     if (signInError) throw new Error(signInError.message);
+
+    //Pull user's metadata from user_metadata table
+    const users_metadata = await getUserMetadata({ userId: data.user.id });
 
     //Return logged in user's data
     return { userData: data.user, userMetadata: users_metadata };
