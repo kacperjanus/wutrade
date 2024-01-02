@@ -94,8 +94,12 @@ export function useCalculateAllPortfolios() {
     const dataToPost = [];
     const today = new Date();
     const todayString = `${today.getFullYear()}-${
-        today.getMonth() + 1
-    }-${today.getDate()}`;
+        Number(today.getMonth() + 1) < 10
+            ? "0" + Number(today.getMonth() + 1)
+            : today.getMonth() + 1
+    }-${
+        Number(today.getDate()) < 10 ? "0" + today.getDate() : today.getDate()
+    }`;
 
     //5. Send portfolio values to portfolio values in the database
     for (let value of calculatedPortfolioValues) {
