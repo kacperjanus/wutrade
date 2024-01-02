@@ -3,6 +3,7 @@ import ContentBox from "../../ui/ContentBox";
 import { useTopMovers } from "./useTopMovers";
 import TopMover from "./TopMover";
 import Spinner from "../../ui/Spinner";
+import Button from "../../ui/Button";
 
 function TopMovers() {
     const [gainers, setGainers] = useState(false);
@@ -20,16 +21,18 @@ function TopMovers() {
     ) : (
         <ContentBox>
             <div className="flex flex-row justify-between items-center">
-                <h1>Top {gainers ? "Gainers" : "Losers"}</h1>
-                <button
+                <h1 className="font-bold">
+                    Top {gainers ? "Gainers" : "Losers"}
+                </h1>
+                <Button
                     type="secondary"
                     value={gainers}
                     onClick={() => setGainers((gainers) => !gainers)}
                 >
                     See {gainers ? "Losers" : "Gainers"}
-                </button>
+                </Button>
             </div>
-            {displayData ? (
+            {displayData && displayData.length !== 0 ? (
                 <ul>
                     {displayData?.map((mover, i) => (
                         <li key={mover.ticker}>

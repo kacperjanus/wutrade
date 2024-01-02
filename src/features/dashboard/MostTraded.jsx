@@ -12,8 +12,8 @@ function MostTraded() {
         <Spinner />
     ) : (
         <ContentBox>
-            <h1>Most Traded</h1>
-            {displayData ? (
+            <h1 className="font-bold py-3">Most Traded</h1>
+            {displayData && displayData.length !== 0 ? (
                 <ul>
                     {displayData?.map((mover, i) => (
                         <li key={mover.ticker}>
