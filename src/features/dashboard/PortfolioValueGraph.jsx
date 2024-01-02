@@ -1,16 +1,14 @@
-import ContentBox from "../../ui/ContentBox";
 import Spinner from "../../ui/Spinner";
-import { formatCurrency } from "../../utils/helpers";
-import PortfolioChart from "../portfolio/PortfolioChart";
+import PortfolioValueChart from "../portfolio/PortfolioValueChart";
 import { usePortfolio } from "../portfolio/usePortfolio";
 
 function PortfolioValueGraph() {
     const { isLoading, portfolio } = usePortfolio();
 
-    return (
-        <ContentBox>
-            {isLoading ? <Spinner /> : <PortfolioChart portfolio={portfolio} />}
-        </ContentBox>
+    return isLoading ? (
+        <Spinner />
+    ) : (
+        <PortfolioValueChart portfolio={portfolio} />
     );
 }
 

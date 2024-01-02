@@ -13,7 +13,7 @@ function WatchlistPreview() {
     ) : (
         <ContentBox>
             <Link to="/watchlist" className="font-medium">
-                Watchlist
+                <div className="mb-3 font-bold">Watchlist preview</div>
             </Link>
             <ul>
                 {slicedWatchlist.length !== 0
