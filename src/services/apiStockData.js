@@ -2,7 +2,7 @@ import { aplhavantageKey } from "./alphavantage";
 
 export async function getTopMovers() {
     const data = await fetch(
-        `https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=${aplhavantageKey}`
+        `https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&entitlement=delayed&apikey=${aplhavantageKey}`
     ).then((res) => res.json());
 
     //TODO handle fetch errors
