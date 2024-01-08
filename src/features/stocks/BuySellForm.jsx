@@ -29,7 +29,9 @@ function BuySellForm({ company, isBuying, closeFunction }) {
     });
 
     const price =
-        globalQuote?.["Global Quote - DATA DELAYED BY 15 MINUTES"]["02. open"];
+        globalQuote?.["Global Quote - DATA DELAYED BY 15 MINUTES"]?.[
+            "05. price"
+        ];
 
     const navigate = useNavigate();
 
