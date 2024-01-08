@@ -8,6 +8,8 @@ function AccountStats() {
     const portfolio = queryClient.getQueryData(["portfolio"]);
     const user = queryClient.getQueryData(["user"]);
 
+    if (transactions.length === 0) return;
+
     const highestTransaction = transactions.find(
         (transaction) =>
             transaction.quantity * transaction.pricePerShare ===
