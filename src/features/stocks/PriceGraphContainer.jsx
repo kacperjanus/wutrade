@@ -11,7 +11,7 @@ function PriceGraphContainer({
     setMainInterval,
 }) {
     return (
-        <ContentBox>
+        <ContentBox dataTestId="price-graph-container">
             <p className="font-bold">Price graph</p>
             <IntervalFilter
                 mainInterval={mainInterval}

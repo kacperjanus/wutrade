@@ -2,7 +2,7 @@ import ContentBox from "../../ui/ContentBox";
 
 function CompanyOverview({ data }) {
     return (
-        <ContentBox>
+        <ContentBox dataTestId="company-overview-container">
             <span className="font-bold">Overview</span>
             <div className="flex flex-col">
                 <span className="mb-5">{data.Description}</span>

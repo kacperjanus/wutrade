@@ -31,7 +31,11 @@ function AddToWatchlist({ watchlist }) {
                 }
             }}
         >
-            {added ? <HiHeart color="red" /> : <HiOutlineHeart />}
+            {added ? (
+                <HiHeart color="red" data-testid="heart-button" />
+            ) : (
+                <HiOutlineHeart data-testid="heart-outline" />
+            )}
         </Button>
     );
 }

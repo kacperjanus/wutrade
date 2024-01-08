@@ -3,7 +3,7 @@ import { formatCurrency } from "../../utils/helpers";
 
 function CompanyFinancials({ data }) {
     return (
-        <ContentBox>
+        <ContentBox dataTestId="financials-container">
             <span className="font-bold">Financials</span>
             <div className="flex flex-col text-slate-300">
                 <span>

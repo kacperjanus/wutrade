@@ -4,7 +4,7 @@ import BuySellButtons from "./BuySellButtons";
 
 function CompanyHeader({ data, watchlist, portfolio }) {
     return (
-        <div>
+        <div data-testid="company-header">
             <div className="flex flex-row ">
                 <SectionHeader>
                     <span className="font-medium">{data.Name}</span> (

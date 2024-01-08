@@ -3,7 +3,7 @@ import { formatCurrency } from "../../utils/helpers";
 
 function CompanyDividend({ data }) {
     return (
-        <ContentBox>
+        <ContentBox dataTestId="dividend-container">
             <span className="font-bold">Dividend</span>
             <div className="flex flex-col text-slate-300">
                 <span>Next dividend date: {data["DividendDate"]}</span>

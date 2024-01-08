@@ -6,7 +6,7 @@ function Leaderboards() {
     return (
         <>
             <SectionHeader>Leaderboards</SectionHeader>
-            <ContentBox>
+            <ContentBox dataTestId="leaderboards-container">
                 <Leaderboard />
             </ContentBox>
         </>
