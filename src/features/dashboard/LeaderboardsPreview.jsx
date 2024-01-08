@@ -4,7 +4,7 @@ import Leaderboard from "../leaderboards/Leaderboard";
 function LeaderboardsPreview() {
     return (
         <ContentBox>
-            <p>Leaderboards</p>
+            <p className="font-bold">Leaderboards preview</p>
             <Leaderboard />
         </ContentBox>
     );
