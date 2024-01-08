@@ -70,12 +70,10 @@ function TransactionList() {
                 />
             )}
             {filteredData.length === 0 ? (
-                <ContentBox>
-                    <p>
-                        Nothing to see here. Visit explore tab to make a
-                        transaction
-                    </p>
-                </ContentBox>
+                <p className="text-center text-lg">
+                    Nothing to see here. Visit EXPLORE tab to make a
+                    transaction!
+                </p>
             ) : (
                 <ul>
                     {Object.values(pagedData)
