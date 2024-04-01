@@ -1,8 +1,8 @@
-import { aplhavantageKey } from "./alphavantage";
+const alphavantageKey = import.meta.env.VITE_ALPHAVANTAGE_KEY;
 
 export async function getTopMovers() {
     const data = await fetch(
-        `https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&entitlement=delayed&apikey=${aplhavantageKey}`
+        `https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&entitlement=delayed&apikey=${alphavantageKey}`
     ).then((res) => res.json());
 
     //TODO handle fetch errors
@@ -12,7 +12,7 @@ export async function getTopMovers() {
 
 export async function getStockFundamentalData({ stockId }) {
     const data = await fetch(
-        `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${stockId}&apikey=${aplhavantageKey}`
+        `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${stockId}&apikey=${alphavantageKey}`
     ).then((res) => res.json());
 
     return data;
@@ -20,7 +20,7 @@ export async function getStockFundamentalData({ stockId }) {
 
 export async function getStockIntradayPriceData({ stockId, interval }) {
     const data = await fetch(
-        `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${stockId}&interval=${interval}&entitlement=delayed&apikey=${aplhavantageKey}`
+        `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${stockId}&interval=${interval}&entitlement=delayed&apikey=${alphavantageKey}`
     ).then((res) => res.json());
 
     return data;
@@ -28,7 +28,7 @@ export async function getStockIntradayPriceData({ stockId, interval }) {
 
 export async function getStockDailyPriceData({ stockId }) {
     const data = await fetch(
-        `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockId}&apikey=${aplhavantageKey}`
+        `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockId}&apikey=${alphavantageKey}`
     ).then((res) => res.json());
 
     return data;
@@ -36,7 +36,7 @@ export async function getStockDailyPriceData({ stockId }) {
 
 export async function getStockWeeklyPriceData({ stockId }) {
     const data = await fetch(
-        `https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=${stockId}&apikey=${aplhavantageKey}`
+        `https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=${stockId}&apikey=${alphavantageKey}`
     ).then((res) => res.json());
 
     return data;
@@ -44,7 +44,7 @@ export async function getStockWeeklyPriceData({ stockId }) {
 
 export async function getStockMonthlyPriceData({ stockId }) {
     const data = await fetch(
-        `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=${stockId}&apikey=${aplhavantageKey}`
+        `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=${stockId}&apikey=${alphavantageKey}`
     ).then((res) => res.json());
 
     return data;
@@ -52,7 +52,7 @@ export async function getStockMonthlyPriceData({ stockId }) {
 
 export async function getStockPrice({ stockId }) {
     const data = await fetch(
-        `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stockId}&entitlement=delayed&apikey=${aplhavantageKey}`
+        `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stockId}&entitlement=delayed&apikey=${alphavantageKey}`
     ).then((res) => res.json());
 
     return data;
