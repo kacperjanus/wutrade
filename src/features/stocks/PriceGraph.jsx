@@ -36,7 +36,7 @@ function PriceGraph({
         all: 0,
     };
 
-    if (prices["Error Message"] || !prices) return <div>ERROR</div>;
+    if (prices?.["Information"] || prices?.["Note"] || prices?.["Error Message"] || !prices) return <div>ERROR</div>;
 
     const times =
         timeSeries === "intra"
@@ -58,7 +58,7 @@ function PriceGraph({
         .reverse()
         .slice(objectInterval[mainInterval]);
 
-    const data = times.map((item, i) => {
+    const data = times?.map((item, i) => {
         return {
             time: item,
             price: Number(price[i]),

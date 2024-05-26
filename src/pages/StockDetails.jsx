@@ -13,6 +13,7 @@ import PriceGraphContainer from "../features/stocks/PriceGraphContainer";
 import CompanyFinancials from "../features/stocks/CompanyFinancials";
 import CompanyDividend from "../features/stocks/CompanyDividend";
 import CompanyHeader from "../features/stocks/CompanyHeader";
+import ContentBox from "../ui/ContentBox.jsx";
 
 function StockDetails() {
     const queryClient = useQueryClient();
@@ -70,6 +71,12 @@ function StockDetails() {
 
     if (isLoading || isLoadingWatchlist || isLoadingTransactions)
         return <Spinner />;
+
+    if (prices?.["Information"] || prices?.["Note"] || prices?.["Error Message"] || !prices) return (<ContentBox>
+        <h1 className="uppercase text-center font-medium text-3xl">
+            Unable to fetch data
+        </h1>
+    </ContentBox>)
 
     return Object.keys(data).length === 0 ? (
         <NotFound />

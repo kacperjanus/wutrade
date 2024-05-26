@@ -5,7 +5,6 @@ export function usePostPortfolioValues() {
     const queryClient = useQueryClient();
     const {
         mutate: postValues,
-        error,
         isLoading,
     } = useMutation({
         mutationFn: (valuesToPost) => postPortfolioValues(valuesToPost),
@@ -15,8 +14,14 @@ export function usePostPortfolioValues() {
             queryClient.removeQueries(["allUserData"]);
             queryClient.invalidateQueries(["portfolioValues"]);
         },
-        onError: () => {},
-    });
+        onError: (error) => {
+            throw new Error(error.message)
+        },
+    },
+    {
+        retry: 3
+    }
+    );
 
     return { postValues, isLoading };
 }

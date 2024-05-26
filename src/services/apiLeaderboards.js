@@ -1,7 +1,7 @@
 import supabase from "./supabase";
 
 export async function getAllPortfolioValues() {
-    const { data: portfolio_values, error } = await supabase
+    const { data: portfolio_values } = await supabase
         .from("portfolio_values")
         .select("*");
 
@@ -19,8 +19,8 @@ export async function getAllUserData() {
 }
 
 export async function postPortfolioValues(valuesToPost) {
-    if (valuesToPost?.length === 0 || !valuesToPost) return;
-    const { data, error } = await supabase
+    if (valuesToPost?.length === 0 || !valuesToPost || !valuesToPost[0]["portfolio_value"]) throw new Error("Unable to post portfolio values");
+    const { error } = await supabase
         .from("portfolio_values")
         .insert(valuesToPost)
         .select();

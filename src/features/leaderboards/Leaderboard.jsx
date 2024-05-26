@@ -9,7 +9,7 @@ function Leaderboard() {
     const { postValues, isLoading: isPostingValues } = usePostPortfolioValues();
 
     useEffect(() => {
-        if (dataToPost && dataToPost.length !== 0 && !isPostingValues) {
+        if (dataToPost && dataToPost.length !== 0 && !isPostingValues && !!dataToPost[0]["portfolio_value"]) {
             postValues(dataToPost);
         }
     }, [postValues, dataToPost, isPostingValues]);
